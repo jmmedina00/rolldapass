@@ -1,26 +1,32 @@
 import {
   Box,
+  FilledInput,
   FormControl,
-  Grid,
+  Icon,
+  InputAdornment,
   InputLabel,
-  LinearProgress,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
 } from "@mui/material";
 import PassEntropy from "./PassEntropy";
 
-const PassGenerator = () => (
-  <Box p={3}>
-    <TextField
-      variant="filled"
-      type="password"
-      label="Generate your password"
-      fullWidth
-    />
-    <PassEntropy />
-  </Box>
-);
+const PassGenerator = () => {
+  const passwordInputButtons = (
+    <InputAdornment position="end">
+      <Icon sx={{ mr: 0.5 }}>visibility_off</Icon>
+      <Icon sx={{ mr: 0.5 }}>cached</Icon>
+      <Icon>content_paste</Icon>
+    </InputAdornment>
+  );
+
+  return (
+    <Box p={3}>
+      <FormControl variant="filled" fullWidth>
+        <InputLabel>Generate your password</InputLabel>
+        <FilledInput endAdornment={passwordInputButtons} />
+      </FormControl>
+
+      <PassEntropy />
+    </Box>
+  );
+};
 
 export default PassGenerator;

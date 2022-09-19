@@ -1,14 +1,20 @@
 import { Chip, Grid } from "@mui/material";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CharsetDefinitionProperty } from "../../../types/CharsetDefinition";
+import { toggleCharset } from "../configSlice";
 
 const CharsetChip = ({
   charsetDef: { label, charset },
 }: CharsetDefinitionProperty) => {
-  const [enabled, setEnabled] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  const enabled = useAppSelector((state) => {
+    const activeCharsets = state.config.charsets;
+    return !!activeCharsets.find((anyCharset) => anyCharset === charset);
+  });
 
   const handleClick = () => {
-    setEnabled(!enabled);
+    dispatch(toggleCharset(charset));
   };
 
   return (

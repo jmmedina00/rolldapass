@@ -1,5 +1,6 @@
-import { Box, Chip, Grid, Slider, Stack, Typography } from "@mui/material";
+import { Box, Grid, Slider, Stack, Typography } from "@mui/material";
 import React from "react";
+import CharsetChip from "./CharsetChip";
 import { charsetsBasic } from "./constants";
 
 const PassConfig = () => {
@@ -8,12 +9,6 @@ const PassConfig = () => {
   const handleLengthChange = (event: Event, newLength: number | number[]) => {
     setLength(newLength as number);
   };
-
-  const charsetChips = charsetsBasic.map(({ label }) => (
-    <Grid item>
-      <Chip label={label} color="default" />
-    </Grid>
-  ));
 
   return (
     <Box p={3}>
@@ -30,7 +25,9 @@ const PassConfig = () => {
       </Stack>
       <Typography variant="h6">Character sets</Typography>
       <Grid container spacing={2}>
-        {charsetChips}
+        {charsetsBasic.map((charsetDef) => (
+          <CharsetChip charsetDef={charsetDef} />
+        ))}
       </Grid>
     </Box>
   );

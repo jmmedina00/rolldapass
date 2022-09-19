@@ -1,3 +1,3 @@
-import PassGenerator from "./PassGenerator";
+import PassGenerator from "./components/PassGenerator";
 
 export default PassGenerator;

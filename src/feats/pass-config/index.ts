@@ -1,3 +1,3 @@
-import PassConfig from "./PassConfig";
+import PassConfig from "./components/PassConfig";
 
 export default PassConfig;

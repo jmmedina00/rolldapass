@@ -1,7 +1,7 @@
 import { Box, Grid, Slider, Stack, Typography } from "@mui/material";
 import React from "react";
 import CharsetChip from "./CharsetChip";
-import { charsetsBasic } from "./constants";
+import { charsetsBasic } from "../constants";
 
 const PassConfig = () => {
   const [length, setLength] = React.useState<number>(8);

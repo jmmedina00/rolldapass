@@ -7,9 +7,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import PassConfig from "./feats/pass-config";
-import PassGenerator from "./feats/pass-generator";
-import PassManagerPromotion from "./feats/pass-manager-promotion/";
+import PassConfig from "./features/pass-config";
+import PassGenerator from "./features/pass-generator";
+import PassManagerPromotion from "./features/pass-manager-promotion";
 
 const App = () => (
   <Stack direction="column">

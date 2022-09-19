@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DIGITS, LETTERS_UPPERCASE } from "./constants";
 
-interface ConfigState {
+export interface ConfigState {
   length: number;
   charsets: string[];
 }

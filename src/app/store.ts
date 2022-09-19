@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import configReducer from "../features/pass-config/configSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { config: configReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

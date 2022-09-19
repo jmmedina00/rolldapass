@@ -1,13 +1,15 @@
 import { Box, Grid, Slider, Stack, Typography } from "@mui/material";
-import React from "react";
 import CharsetChip from "./CharsetChip";
 import { charsetsBasic } from "../constants";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { changeLength } from "../configSlice";
 
 const PassConfig = () => {
-  const [length, setLength] = React.useState<number>(8);
+  const dispatch = useAppDispatch();
+  const length = useAppSelector((state) => state.config.length);
 
   const handleLengthChange = (event: Event, newLength: number | number[]) => {
-    setLength(newLength as number);
+    dispatch(changeLength(newLength as number));
   };
 
   return (

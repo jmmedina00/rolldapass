@@ -1,11 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  PreloadedState,
+} from "@reduxjs/toolkit";
 import configReducer from "../features/pass-config/configSlice";
 
-export const store = configureStore({
-  reducer: { config: configReducer },
-});
+const rootReducer = combineReducers({ config: configReducer });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({ reducer: rootReducer, preloadedState });
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];

@@ -9,7 +9,7 @@ const initialState: PasswordState = {
 };
 
 export const passwordSlice = createSlice({
-  name: "password",
+  name: "passwordGenerator",
   initialState,
   reducers: {
     changePassword: (state: PasswordState, action: PayloadAction<string>) => ({

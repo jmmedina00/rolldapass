@@ -12,7 +12,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 export const renderWithProviders = (
   ui: React.ReactElement,
   {
-    preloadedState = { config: { length: 2, charsets: [] } }, // PLACEHOLDER VALUE
+    preloadedState = {},
     store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}

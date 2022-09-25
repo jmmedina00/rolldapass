@@ -7,14 +7,16 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { changePassword } from "../passwordSlice";
+import { generatePassword } from "../services/generate-password";
 import PassEntropy from "./PassEntropy";
 
 const PassGenerator = () => {
   const dispatch = useAppDispatch();
   const password = useAppSelector((state) => state.passwordGenerator.password);
+  const config = useAppSelector((state) => state.config);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +26,11 @@ const PassGenerator = () => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    const newPassword = generatePassword(config.length, config.charsets);
+    dispatch(changePassword(newPassword));
+  }, [config, dispatch]);
 
   const passwordInputButtons = (
     <InputAdornment position="end">

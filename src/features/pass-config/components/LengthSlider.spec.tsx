@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { changeLength, ConfigState } from "../configSlice";
-import PassConfig from "./PassConfig";
+import LengthSlider from "./LengthSlider";
 
 describe("pass config slider", () => {
   const baseConfig: ConfigState = {
@@ -12,7 +12,7 @@ describe("pass config slider", () => {
   };
 
   it("should reflect the length of the store", () => {
-    const { getByRole } = renderWithProviders(<PassConfig />, {
+    const { getByRole } = renderWithProviders(<LengthSlider />, {
       preloadedState: { config: baseConfig },
     });
 
@@ -25,7 +25,7 @@ describe("pass config slider", () => {
     expectedStore.dispatch(changeLength(32));
 
     const actualStore = setupStore({ config: baseConfig });
-    const { getByRole } = renderWithProviders(<PassConfig />, {
+    const { getByRole } = renderWithProviders(<LengthSlider />, {
       store: actualStore,
     });
 

@@ -12,7 +12,7 @@ const PassConfig = () => {
       <Typography variant="h6">Character sets</Typography>
       <Grid container spacing={2}>
         {charsetsBasic.map((charsetDef) => (
-          <CharsetChip charsetDef={charsetDef} />
+          <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
         ))}
       </Grid>
     </Box>

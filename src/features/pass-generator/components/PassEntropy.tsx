@@ -45,7 +45,9 @@ const PassEntropy = () => {
             sx={{ minWidth: 300, textAlign: "left" }}
           >
             {Object.entries(entropyList).map(([key, label]) => (
-              <MenuItem value={key}>{label}</MenuItem>
+              <MenuItem key={key} value={key}>
+                {label}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

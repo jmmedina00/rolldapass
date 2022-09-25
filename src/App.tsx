@@ -5,10 +5,17 @@ import PassGenerator from "./features/pass-generator";
 import PassManagerPromotion from "./features/pass-manager-promotion";
 
 const App = () => (
-  <Stack direction="column">
+  <Stack direction="column" sx={{ display: "flex" }}>
     <AppBarSettings />
 
-    <Container sx={{ marginTop: 3 }}>
+    <Container
+      sx={{
+        marginTop: 3,
+        flexGrow: 1,
+        /* marginLeft: "256px",
+        width: "calc(100% - 256px)", */
+      }}
+    >
       <Stack direction="column" spacing={3}>
         <Paper elevation={2}>
           <PassGenerator />

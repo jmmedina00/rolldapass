@@ -31,4 +31,5 @@ export const settingsSlice = createSlice({
   },
 });
 
+export const { toggleDrawer, toggleSetting } = settingsSlice.actions;
 export default settingsSlice.reducer;

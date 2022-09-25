@@ -2,7 +2,7 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { changeLength } from "../../pass-config/configSlice";
+import { changeLength, toggleCharset } from "../../pass-config/configSlice";
 import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import PassGenerator from "./PassGenerator";
@@ -54,9 +54,12 @@ describe("password generator", () => {
     const store = setupStore({ config: { length: 3, charsets: ["ABCD"] } });
 
     renderWithProviders(<PassGenerator />, { store });
-    store.dispatch(changeLength(4));
 
-    expect(generatePassword).toHaveBeenCalledWith(4, ["ABCD"]);
+    act(() => {
+      store.dispatch(changeLength(4));
+    });
+
+    expect(generatePassword).toHaveBeenLastCalledWith(4, ["ABCD"]);
   });
 
   it("should change the password in state when config state changes", () => {
@@ -66,7 +69,9 @@ describe("password generator", () => {
     });
 
     renderWithProviders(<PassGenerator />, { store });
-    store.dispatch(changeLength(4));
+    act(() => {
+      store.dispatch(changeLength(4));
+    });
 
     expect(store.getState().passwordGenerator.password).not.toEqual("old");
   });
@@ -81,8 +86,10 @@ describe("password generator", () => {
     });
 
     renderWithProviders(<PassGenerator />, { store });
-    store.dispatch(changePassword("thisisGood"));
-    store.dispatch(unrelatedSlice.actions.increaseCounter());
+    act(() => {
+      store.dispatch(changePassword("thisisGood"));
+      store.dispatch(unrelatedSlice.actions.increaseCounter());
+    });
 
     expect(store.getState().passwordGenerator.password).toEqual("thisisGood");
   });

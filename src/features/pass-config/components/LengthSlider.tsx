@@ -7,7 +7,10 @@ const LengthSlider = () => {
   const length = useAppSelector((state) => state.config.length);
 
   const handleLengthChange = (event: Event, newLength: number | number[]) => {
-    dispatch(changeLength(newLength as number));
+    const processedLength = newLength as number;
+    if (length !== processedLength) {
+      dispatch(changeLength(newLength as number));
+    }
   };
   return (
     <Stack spacing={3} direction="row" alignItems="center">

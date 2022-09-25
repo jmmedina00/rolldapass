@@ -7,6 +7,7 @@ import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import PassGenerator from "./PassGenerator";
 import passwordReducer from "../passwordSlice";
+import configReducer from "../../../features/pass-config/configSlice";
 
 jest.mock("../services/generate-password");
 
@@ -75,6 +76,7 @@ describe("password generator", () => {
       reducer: combineReducers({
         passwordGenerator: passwordReducer,
         unrelated: unrelatedSlice.reducer,
+        config: configReducer,
       }),
     });
 

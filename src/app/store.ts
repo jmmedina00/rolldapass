@@ -5,10 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 import configReducer from "../features/pass-config/configSlice";
 import passwordReducer from "../features/pass-generator/passwordSlice";
+import settingsReducer from "../features/appbar-settings/settingsSlice";
 
 const rootReducer = combineReducers({
   config: configReducer,
   passwordGenerator: passwordReducer,
+  settings: settingsReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>

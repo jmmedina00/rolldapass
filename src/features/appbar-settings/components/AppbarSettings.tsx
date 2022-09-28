@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import SettingToggle from "./SettingToggle";
 
 const AppBarSettings = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -67,6 +68,7 @@ const AppBarSettings = () => {
         <IconButton onClick={handleDrawerChange}>
           <Icon>close</Icon>
         </IconButton>
+        <SettingToggle toggleProperty="test" toggleLabel="Test here" />
       </Drawer>
     </div>
   );

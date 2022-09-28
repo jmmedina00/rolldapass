@@ -28,8 +28,13 @@ export const settingsSlice = createSlice({
         toggle: { ...state.toggle, [setting]: !settingEnabled },
       };
     },
+    initializeSetting: (
+      state: SettingsState,
+      action: PayloadAction<string>
+    ) => ({ ...state, toggle: { ...state.toggle, [action.payload]: false } }),
   },
 });
 
-export const { toggleDrawer, toggleSetting } = settingsSlice.actions;
+export const { toggleDrawer, toggleSetting, initializeSetting } =
+  settingsSlice.actions;
 export default settingsSlice.reducer;

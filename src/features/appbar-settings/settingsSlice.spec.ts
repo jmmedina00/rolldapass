@@ -1,4 +1,5 @@
 import settingsReducer, {
+  initializeSetting,
   SettingsState,
   toggleDrawer,
   toggleSetting,
@@ -49,5 +50,13 @@ describe("settings reducer", () => {
     expect(
       settingsReducer(initialState, toggleSetting("unknown")).toggle["unknown"]
     ).toBeTruthy();
+  });
+
+  it("should initialize a setting as false", () => {
+    expect(
+      settingsReducer(initialState, initializeSetting("unknown")).toggle[
+        "unknown"
+      ]
+    ).toBeFalsy();
   });
 });

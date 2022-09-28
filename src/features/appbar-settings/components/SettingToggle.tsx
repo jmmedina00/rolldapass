@@ -1,6 +1,6 @@
 import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { toggleSetting } from "../settingsSlice";
+import { initializeSetting, toggleSetting } from "../settingsSlice";
 
 export interface SettingToggleProperty {
   toggleProperty: string;
@@ -13,8 +13,12 @@ const SettingToggle = ({
 }: SettingToggleProperty) => {
   const dispatch = useAppDispatch();
   const enabled = useAppSelector(
-    (state) => state.settings.toggle[toggleProperty] || false
+    (state) => state.settings.toggle[toggleProperty]
   );
+
+  if (enabled === undefined) {
+    dispatch(initializeSetting(toggleProperty));
+  }
 
   const handleChange = () => {
     dispatch(toggleSetting(toggleProperty));

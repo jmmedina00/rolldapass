@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { passManagers } from "../constants";
-import PassManagerCard from "./PassManagerInfo";
+import PassManagerCard from "./PassManagerCard";
 
 const PassManagerPromotion = () => {
   const plainPassManagers = Object.entries(passManagers)

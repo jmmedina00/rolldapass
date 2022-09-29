@@ -3,13 +3,11 @@ import { passManagers } from "../constants";
 import PassManagerSection from "./PassManagerSection";
 
 const PassManagerPromotion = () => {
-  const sections = Object.entries(passManagers).map(([_, section]) => section);
-
-  const visualSections = sections.map((section) => (
-    <PassManagerSection section={section} />
+  const sections = Object.entries(passManagers).map(([key, section]) => (
+    <PassManagerSection key={key} section={section} />
   ));
 
-  return <Box>{visualSections}</Box>;
+  return <Box>{sections}</Box>;
 };
 
 export default PassManagerPromotion;

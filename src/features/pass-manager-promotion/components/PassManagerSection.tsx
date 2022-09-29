@@ -8,7 +8,9 @@ const PassManagerSection = ({
 }: {
   section: PromotionSection;
 }) => {
-  const passManagerCards = items.map((info) => <PassManagerCard info={info} />);
+  const passManagerCards = items.map((info) => (
+    <PassManagerCard key={info.name} info={info} />
+  ));
 
   return (
     <Box>

@@ -1,21 +1,15 @@
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { passManagers } from "../constants";
-import PassManagerCard from "./PassManagerCard";
+import PassManagerSection from "./PassManagerSection";
 
 const PassManagerPromotion = () => {
-  const plainPassManagers = Object.entries(passManagers)
-    .map(([_, section]) => section.items)
-    .flat();
+  const sections = Object.entries(passManagers).map(([_, section]) => section);
 
-  const passManagerCards = plainPassManagers.map((info) => (
-    <PassManagerCard info={info} />
+  const visualSections = sections.map((section) => (
+    <PassManagerSection section={section} />
   ));
 
-  return (
-    <Grid container spacing={3}>
-      {passManagerCards}
-    </Grid>
-  );
+  return <Box>{visualSections}</Box>;
 };
 
 export default PassManagerPromotion;

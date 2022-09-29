@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { PassManagerInfo } from "../constants";
 
-const PassManagerInfo = ({
+const PassManagerCard = ({
   info: { name, description, image, url },
 }: {
   info: PassManagerInfo;
@@ -26,3 +26,5 @@ const PassManagerInfo = ({
     </Card>
   </Grid>
 );
+
+export default PassManagerCard;

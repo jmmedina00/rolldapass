@@ -15,6 +15,7 @@ const PassManagerPromotion = () => {
 
   const flatCards = Object.entries(passManagers)
     .flatMap(([_, section]) => section.items)
+    .sort((a, b) => a.name.localeCompare(b.name))
     .map((info) => <PassManagerCard key={info.name} info={info} />);
 
   return organizeToSections ? (

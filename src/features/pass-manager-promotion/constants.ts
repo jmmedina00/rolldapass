@@ -50,7 +50,7 @@ export const passManagers: Promotion = {
       },
       {
         name: "Blur",
-        image: "assets/blur.svg",
+        image: "assets/blur.png",
         description: "Protects your privacy.",
         url: "https://www.abine.com/",
       },
@@ -79,7 +79,7 @@ export const passManagers: Promotion = {
       },
       {
         name: "KeeWeb",
-        image: "assets/keeweb.svg",
+        image: "assets/keeweb.png",
         description: "KeePass on your web browser... or Electron.",
         url: "https://keeweb.info/",
       },

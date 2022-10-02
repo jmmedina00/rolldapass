@@ -10,6 +10,7 @@ import passwordReducer from "../passwordSlice";
 import configReducer from "../../../features/pass-config/configSlice";
 
 jest.mock("../services/generate-password");
+jest.mock("./PassEntropy");
 
 const unrelatedSlice = createSlice({
   name: "unrelated",

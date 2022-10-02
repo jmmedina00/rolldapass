@@ -75,4 +75,5 @@ const algorithms: { [key: string]: EntropyAlgorithm } = {
 
 const list = Object.keys(algorithms);
 
-export default { algorithms, list };
+const exported = { algorithms, list };
+export default exported;

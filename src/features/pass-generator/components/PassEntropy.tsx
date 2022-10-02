@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import entropy from "../services/entropy";
 
-const entropyList = {
-  zxcvbn: "zxcvbn",
-  uic: "UIC",
-  tai: "Tai-Password-Strength",
-};
+const entropyItems = entropy.list.map((name) => [
+  name,
+  entropy.algorithms[name].label,
+]);
 
 const PassEntropy = () => {
   const [entropy, setEntropy] = useState<string>("zxcvbn");
@@ -44,7 +44,7 @@ const PassEntropy = () => {
             onChange={handleEntropyChange}
             sx={{ minWidth: 300, textAlign: "left" }}
           >
-            {Object.entries(entropyList).map(([key, label]) => (
+            {entropyItems.map(([key, label]) => (
               <MenuItem key={key} value={key}>
                 {label}
               </MenuItem>

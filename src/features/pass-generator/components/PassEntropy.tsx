@@ -9,30 +9,41 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
-import entropy from "../services/entropy";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
+import entropyService from "../services/entropy";
 
-const entropyItems = entropy.list.map((name) => [
+const entropyItems = entropyService.list.map((name) => [
   name,
-  entropy.algorithms[name].label,
+  entropyService.algorithms[name].label,
 ]);
 
 const PassEntropy = () => {
+  const password = useAppSelector((state) => state.passwordGenerator.password);
   const [entropy, setEntropy] = useState<string>("zxcvbn");
+  const [percent, setPercent] = useState<number>(0);
+  const [displayInfo, setInfo] = useState<string>("");
 
   const handleEntropyChange = (event: SelectChangeEvent) => {
     setEntropy(event.target.value);
   };
 
+  useEffect(() => {
+    const { info, strengthPercent } =
+      entropyService.algorithms[entropy].calculator(password);
+    setPercent(strengthPercent);
+    setInfo(info);
+  }, [password, entropy]);
+
   return (
     <Box>
       <LinearProgress
         variant="determinate"
-        value={78}
+        value={percent}
         sx={{ height: 8, borderRadius: 4 }}
       />
       <Typography variant="overline" align="right" paragraph={true}>
-        Entropy: 78 bit
+        {displayInfo}
       </Typography>
       <Grid sx={{ textAlign: "right" }}>
         <FormControl>

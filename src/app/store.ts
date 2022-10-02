@@ -4,7 +4,7 @@ import {
   configureStore,
   PreloadedState,
 } from "@reduxjs/toolkit";
-import { load, save } from "redux-localstorage-simple";
+import { save } from "redux-localstorage-simple";
 import configReducer from "../features/pass-config/configSlice";
 import passwordReducer from "../features/pass-generator/passwordSlice";
 import settingsReducer from "../features/appbar-settings/settingsSlice";
@@ -27,5 +27,3 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore["dispatch"];
-
-export default setupStore(load(saveOptions));

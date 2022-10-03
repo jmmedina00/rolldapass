@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 import { fireEvent } from "@testing-library/react";
 import { changeEntropy } from "../passHealthSlice";
 
-describe("pass entropy", () => {
+describe("pass entropy display", () => {
   const password = "1234qwer";
   const defaultEntropy = "zxcvbn";
   it("should calculate entropy of current password", () => {
@@ -41,30 +41,6 @@ describe("pass entropy", () => {
     });
 
     expect(getByText(expected.info)).toBeInTheDocument();
-  });
-
-  it("should change selected entropy in store", () => {
-    const expectedStore = setupStore({
-      passwordHealth: { entropy: defaultEntropy },
-    });
-    expectedStore.dispatch(changeEntropy("uic"));
-
-    const actualStore = setupStore({
-      passwordHealth: { entropy: defaultEntropy },
-    });
-
-    const { getByDisplayValue } = renderWithProviders(<PassEntropy />, {
-      store: actualStore,
-    });
-    const selector = getByDisplayValue(defaultEntropy) as HTMLInputElement;
-
-    act(() => {
-      fireEvent.change(selector, { target: { value: "uic" } });
-    });
-
-    expect(expectedStore.getState().passwordHealth.entropy).toEqual(
-      actualStore.getState().passwordHealth.entropy
-    );
   });
 
   it("should refresh when selected entropy changes", () => {

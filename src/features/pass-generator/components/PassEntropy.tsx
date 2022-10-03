@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { changeEntropy } from "../passHealthSlice";
 import entropyService from "../services/entropy";
 
 const entropyItems = entropyService.list.map((name) => [
@@ -19,13 +20,15 @@ const entropyItems = entropyService.list.map((name) => [
 ]);
 
 const PassEntropy = () => {
+  const dispatch = useAppDispatch();
   const password = useAppSelector((state) => state.passwordGenerator.password);
-  const [entropy, setEntropy] = useState<string>("zxcvbn");
+  const entropy = useAppSelector((state) => state.passwordHealth.entropy);
+
   const [percent, setPercent] = useState<number>(0);
   const [displayInfo, setInfo] = useState<string>("");
 
   const handleEntropyChange = (event: SelectChangeEvent) => {
-    setEntropy(event.target.value);
+    dispatch(changeEntropy(event.target.value));
   };
 
   useEffect(() => {

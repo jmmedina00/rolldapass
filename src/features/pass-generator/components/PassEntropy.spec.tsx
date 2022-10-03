@@ -68,7 +68,10 @@ describe("pass entropy", () => {
   });
 
   it("should refresh when selected entropy changes", () => {
-    const store = setupStore({ passwordHealth: { entropy: defaultEntropy } });
+    const store = setupStore({
+      passwordGenerator: { password },
+      passwordHealth: { entropy: defaultEntropy },
+    });
     const { getByText } = renderWithProviders(<PassEntropy />, {
       store,
     });

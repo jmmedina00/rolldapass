@@ -29,7 +29,6 @@ const PassEntropy = () => {
       <Typography variant="overline" align="right" paragraph={true}>
         {displayInfo}
       </Typography>
-      <EntropySelect />
     </Box>
   );
 };

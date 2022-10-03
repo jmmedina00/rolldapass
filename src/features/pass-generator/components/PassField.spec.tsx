@@ -2,15 +2,14 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { changeLength, toggleCharset } from "../../pass-config/configSlice";
+import { changeLength } from "../../pass-config/configSlice";
 import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
-import PassGenerator from "./PassGenerator";
 import passwordReducer from "../passwordSlice";
-import configReducer from "../../../features/pass-config/configSlice";
+import configReducer from "../../pass-config/configSlice";
+import PassField from "./PassField";
 
 jest.mock("../services/generate-password");
-jest.mock("./PassEntropy");
 
 const unrelatedSlice = createSlice({
   name: "unrelated",
@@ -27,7 +26,7 @@ describe("password generator", () => {
   const inputLabel = "Generate your password";
 
   it("should reflect the password in store", () => {
-    const { getByDisplayValue } = renderWithProviders(<PassGenerator />, {
+    const { getByDisplayValue } = renderWithProviders(<PassField />, {
       preloadedState: { passwordGenerator: { password: presetPassword } },
     });
 
@@ -40,7 +39,7 @@ describe("password generator", () => {
     expectedStore.dispatch(changePassword(newPassword));
 
     const actualStore = setupStore();
-    const { getByDisplayValue } = renderWithProviders(<PassGenerator />, {
+    const { getByDisplayValue } = renderWithProviders(<PassField />, {
       store: actualStore,
     });
     const input = getByDisplayValue("");
@@ -54,7 +53,7 @@ describe("password generator", () => {
   it("should get a new password when config state changes", () => {
     const store = setupStore({ config: { length: 3, charsets: ["ABCD"] } });
 
-    renderWithProviders(<PassGenerator />, { store });
+    renderWithProviders(<PassField />, { store });
 
     act(() => {
       store.dispatch(changeLength(4));
@@ -69,7 +68,7 @@ describe("password generator", () => {
       passwordGenerator: { password: "old" },
     });
 
-    renderWithProviders(<PassGenerator />, { store });
+    renderWithProviders(<PassField />, { store });
     act(() => {
       store.dispatch(changeLength(4));
     });
@@ -86,7 +85,7 @@ describe("password generator", () => {
       }),
     });
 
-    renderWithProviders(<PassGenerator />, { store });
+    renderWithProviders(<PassField />, { store });
     act(() => {
       store.dispatch(changePassword("thisisGood"));
       store.dispatch(unrelatedSlice.actions.increaseCounter());

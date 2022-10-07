@@ -2,6 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import CharsetChip from "./CharsetChip";
 import { charsetsBasic } from "../constants";
 import LengthSlider from "./LengthSlider";
+import CharFieldSet from "./CharFieldSet";
 
 const PassConfig = () => {
   return (
@@ -15,6 +16,7 @@ const PassConfig = () => {
           <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
         ))}
       </Grid>
+      <CharFieldSet />
     </Box>
   );
 };

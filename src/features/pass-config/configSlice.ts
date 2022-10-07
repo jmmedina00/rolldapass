@@ -56,5 +56,6 @@ export const configSlice = createSlice({
   },
 });
 
-export const { changeLength, toggleCharset } = configSlice.actions;
+export const { changeLength, toggleCharset, changeAdditionalCharset } =
+  configSlice.actions;
 export default configSlice.reducer;

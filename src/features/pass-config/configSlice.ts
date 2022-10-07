@@ -4,11 +4,21 @@ import { DIGITS, LETTERS_UPPERCASE } from "./constants";
 export interface ConfigState {
   length: number;
   charsets: string[];
+  additionalChars: {
+    include: string;
+    exclude: string;
+  };
+}
+
+interface AdditionalCharsetChange {
+  charset: "include" | "exclude";
+  value: string;
 }
 
 const initialState: ConfigState = {
   length: 8,
   charsets: [LETTERS_UPPERCASE, DIGITS],
+  additionalChars: { include: "", exclude: "" },
 };
 
 export const configSlice = createSlice({
@@ -30,6 +40,18 @@ export const configSlice = createSlice({
           : state.charsets.filter((charset) => charset !== action.payload);
 
       return { ...state, charsets };
+    },
+    changeAdditionalCharset: (
+      state: ConfigState,
+      action: PayloadAction<AdditionalCharsetChange>
+    ) => {
+      return {
+        ...state,
+        additionalChars: {
+          ...state.additionalChars,
+          [action.payload.charset]: action.payload.value,
+        },
+      };
     },
   },
 });

@@ -1,4 +1,5 @@
 import configReducer, {
+  changeAdditionalCharset,
   changeLength,
   ConfigState,
   toggleCharset,
@@ -14,12 +15,13 @@ describe("config reducer", () => {
   const initialState: ConfigState = {
     length: 10,
     charsets: [SPECIAL_CHARACTERS, LETTERS_LOWERCASE],
-    additionalChars: { exclude: "", include: "" },
+    additionalChars: { exclude: "qwe", include: "" },
   };
   it("should handle initial state", () => {
     expect(configReducer(undefined, { type: "???" })).toEqual({
       length: 8,
       charsets: [LETTERS_UPPERCASE, DIGITS],
+      additionalChars: { exclude: "", include: "" },
     });
   });
 
@@ -43,5 +45,14 @@ describe("config reducer", () => {
       toggleCharset(SPECIAL_CHARACTERS)
     );
     expect(actual.charsets).toEqual([LETTERS_LOWERCASE]);
+  });
+
+  it("should update an additional charset", () => {
+    const actual = configReducer(
+      initialState,
+      changeAdditionalCharset({ charset: "exclude", value: "asd" })
+    );
+
+    expect(actual.additionalChars.exclude).toEqual("asd");
   });
 });

@@ -1,22 +1,22 @@
 import { Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { changeAdditionalCharset } from "../configSlice";
 
 const CharFieldSet = () => {
-  const [include, setInclude] = useState<string>("");
-  const [exclude, setExclude] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const include = useAppSelector(
+    (state) => state.config.additionalChars.include
+  );
+  const exclude = useAppSelector(
+    (state) => state.config.additionalChars.exclude
+  );
 
   const changeValue =
-    (charset: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      switch (charset) {
-        case "include":
-          setInclude(event.target.value);
-          break;
-        case "exclude":
-          setExclude(event.target.value);
-          break;
-        default:
-          console.log("None");
-      }
+    (charset: "include" | "exclude") =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(changeAdditionalCharset({ charset, value: event.target.value }));
     };
 
   return (

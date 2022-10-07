@@ -8,6 +8,7 @@ describe("charset chip component", () => {
   const baseConfig: ConfigState = {
     length: 2,
     charsets: [],
+    additionalChars: { include: "", exclude: "" },
   };
 
   it("should dispatch a toggle charset action when clicked", () => {

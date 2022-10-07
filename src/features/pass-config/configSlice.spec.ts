@@ -14,6 +14,7 @@ describe("config reducer", () => {
   const initialState: ConfigState = {
     length: 10,
     charsets: [SPECIAL_CHARACTERS, LETTERS_LOWERCASE],
+    additionalChars: { exclude: "", include: "" },
   };
   it("should handle initial state", () => {
     expect(configReducer(undefined, { type: "???" })).toEqual({

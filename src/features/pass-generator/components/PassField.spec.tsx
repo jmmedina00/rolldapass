@@ -51,7 +51,13 @@ describe("password generator", () => {
   });
 
   it("should get a new password when config state changes", () => {
-    const store = setupStore({ config: { length: 3, charsets: ["ABCD"] } });
+    const store = setupStore({
+      config: {
+        length: 3,
+        charsets: ["ABCD"],
+        additionalChars: { include: "", exclude: "" },
+      },
+    });
 
     renderWithProviders(<PassField />, { store });
 
@@ -64,7 +70,11 @@ describe("password generator", () => {
 
   it("should change the password in state when config state changes", () => {
     const store = setupStore({
-      config: { length: 3, charsets: ["ABCD"] },
+      config: {
+        length: 3,
+        charsets: ["ABCD"],
+        additionalChars: { include: "", exclude: "" },
+      },
       passwordGenerator: { password: "old" },
     });
 

@@ -9,6 +9,7 @@ describe("pass config slider", () => {
   const baseConfig: ConfigState = {
     length: 16,
     charsets: [],
+    additionalChars: { include: "", exclude: "" },
   };
 
   it("should reflect the length of the store", () => {

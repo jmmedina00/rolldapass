@@ -1,9 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DIGITS, LETTERS_UPPERCASE } from "./constants";
 
+export type CharsetCategory = "basic" | "advanced";
+
+export interface CharsetToggle {
+  category: CharsetCategory;
+  charset: string;
+}
+
 export interface ConfigState {
   length: number;
-  charsets: string[];
+  charsets: {
+    basic: string[];
+    advanced: string[];
+  };
   additionalChars: {
     include: string;
     exclude: string;
@@ -17,7 +27,7 @@ interface AdditionalCharsetChange {
 
 const initialState: ConfigState = {
   length: 8,
-  charsets: [LETTERS_UPPERCASE, DIGITS],
+  charsets: { basic: [LETTERS_UPPERCASE, DIGITS], advanced: [] },
   additionalChars: { include: "", exclude: "" },
 };
 
@@ -29,17 +39,25 @@ export const configSlice = createSlice({
       ...state,
       length: action.payload,
     }),
-    toggleCharset: (state: ConfigState, action: PayloadAction<string>) => {
-      const previousCharsets = state.charsets;
-      const appendedCharsets = [...previousCharsets, action.payload];
+    toggleCharset: (
+      state: ConfigState,
+      action: PayloadAction<CharsetToggle>
+    ) => {
+      const { category, charset } = action.payload;
+
+      const previousCharsets = state.charsets[category];
+      const appendedCharsets = [...previousCharsets, charset];
       const appendedCharsetsSet = new Set(appendedCharsets);
 
       const charsets =
         appendedCharsets.length === appendedCharsetsSet.size
           ? [...appendedCharsets]
-          : state.charsets.filter((charset) => charset !== action.payload);
+          : previousCharsets.filter((c) => c !== charset);
 
-      return { ...state, charsets };
+      return {
+        ...state,
+        charsets: { ...state.charsets, [category]: charsets },
+      };
     },
     changeAdditionalCharset: (
       state: ConfigState,

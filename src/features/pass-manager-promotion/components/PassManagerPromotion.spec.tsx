@@ -1,4 +1,5 @@
 import { renderWithProviders } from "../../../utils/test-utils";
+import { Settings } from "../../appbar-settings/constants";
 import { passManagers } from "../constants";
 import PassManagerPromotion from "./PassManagerPromotion";
 
@@ -16,7 +17,7 @@ describe("pass manager promotion", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
-          toggle: { "pass-manager-section": false },
+          toggle: { [Settings.PassManagerOrganized]: false },
         },
       },
     });
@@ -35,7 +36,7 @@ describe("pass manager promotion", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
-          toggle: { "pass-manager-section": true },
+          toggle: { [Settings.PassManagerOrganized]: true },
         },
       },
     });

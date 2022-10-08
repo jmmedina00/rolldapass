@@ -1,12 +1,13 @@
 import { Box, Grid } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
+import { Settings } from "../../appbar-settings/constants";
 import { passManagers } from "../constants";
 import PassManagerCard from "./PassManagerCard";
 import PassManagerSection from "./PassManagerSection";
 
 const PassManagerPromotion = () => {
   const organizeToSections = useAppSelector(
-    (state) => state.settings.toggle["pass-manager-section"] || false
+    (state) => state.settings.toggle[Settings.PassManagerOrganized] || false
   );
 
   const sections = Object.entries(passManagers).map(([key, section]) => (

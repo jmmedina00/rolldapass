@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import SettingToggle from "./SettingToggle";
+import DrawerContents from "./DrawerContents";
 
 const AppBarSettings = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -48,7 +48,7 @@ const AppBarSettings = () => {
         variant="temporary"
         sx={{ display: { xs: "block", md: "none" } }}
       >
-        Test
+        <DrawerContents />
       </Drawer>
       <Drawer
         variant="persistent"
@@ -68,7 +68,7 @@ const AppBarSettings = () => {
         <IconButton onClick={handleDrawerChange}>
           <Icon>close</Icon>
         </IconButton>
-        <SettingToggle toggleProperty="test" toggleLabel="Test here" />
+        <DrawerContents />
       </Drawer>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Container, Paper, Stack, Typography } from "@mui/material";
 import AppBarSettings from "./features/appbar-settings";
+import NotificationDisplay from "./features/notification";
 import PassConfig from "./features/pass-config";
 import PassGenerator from "./features/pass-generator";
 import PassManagerPromotion from "./features/pass-manager-promotion";
@@ -30,6 +31,7 @@ const App = () => (
         <PassManagerPromotion />
       </Stack>
     </Container>
+    <NotificationDisplay />
   </Stack>
 );
 

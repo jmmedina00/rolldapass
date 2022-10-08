@@ -9,12 +9,14 @@ import configReducer from "../features/pass-config/configSlice";
 import passwordReducer from "../features/pass-generator/passwordSlice";
 import passHealthReducer from "../features/pass-generator/passHealthSlice";
 import settingsReducer from "../features/appbar-settings/settingsSlice";
+import notificationReducer from "../features/notification/notificationSlice";
 
 const rootReducer = combineReducers({
   config: configReducer,
   passwordGenerator: passwordReducer,
   passwordHealth: passHealthReducer,
   settings: settingsReducer,
+  notification: notificationReducer,
 });
 
 export const saveOptions = { states: ["config", "passwordHealth", "settings"] };

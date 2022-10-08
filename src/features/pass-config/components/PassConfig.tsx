@@ -1,10 +1,17 @@
 import { Box, Grid, Typography } from "@mui/material";
 import CharsetChip from "./CharsetChip";
-import { charsetsBasic } from "../constants";
+import CharsetDefinition, {
+  charsetsAdvanced,
+  charsetsBasic,
+} from "../constants";
 import LengthSlider from "./LengthSlider";
 import CharFieldSet from "./CharFieldSet";
 import { useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
+
+const generateChips = (charsetDef: CharsetDefinition) => (
+  <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
+);
 
 const PassConfig = () => {
   const advancedConfig = useAppSelector(
@@ -18,9 +25,9 @@ const PassConfig = () => {
 
       <Typography variant="h6">Character sets</Typography>
       <Grid container spacing={2}>
-        {charsetsBasic.map((charsetDef) => (
-          <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
-        ))}
+        {advancedConfig
+          ? charsetsAdvanced.map(generateChips)
+          : charsetsBasic.map(generateChips)}
       </Grid>
       {advancedConfig && <CharFieldSet />}
     </Box>

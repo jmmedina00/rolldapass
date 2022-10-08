@@ -1,6 +1,6 @@
 import { Chip, Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CharsetDefinitionProperty } from "../../../types/CharsetDefinition";
+import { CharsetDefinitionProperty } from "../constants";
 import { toggleCharset } from "../configSlice";
 
 const CharsetChip = ({

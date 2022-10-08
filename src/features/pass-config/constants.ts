@@ -1,4 +1,11 @@
-import CharsetDefinition from "../../types/CharsetDefinition";
+export default interface CharsetDefinition {
+  label: string;
+  charset: string;
+}
+
+export interface CharsetDefinitionProperty {
+  charsetDef: CharsetDefinition;
+}
 
 export const LETTERS_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const LETTERS_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";

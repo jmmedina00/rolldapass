@@ -1,18 +1,30 @@
 import { Alert, Button, Snackbar } from "@mui/material";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { closeNotification, NotificationType } from "../notificationSlice";
 
 const NotificationDisplay = () => {
-  const [open, setOpen] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const { open, type, severity, message } = useAppSelector(
+    (state) => state.notification
+  );
+
+  const handleClose = () => {
+    dispatch(closeNotification());
+  };
 
   const action = <Button size="small">Test</Button>;
 
   return (
     <Snackbar
       open={open}
-      message={"Test"}
+      message={message}
       anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
     >
-      <Alert severity="info" action={action}>
+      <Alert
+        severity={severity}
+        action={type !== NotificationType.normal ? action : null}
+        onClose={type == NotificationType.normal ? handleClose : undefined}
+      >
         Test
       </Alert>
     </Snackbar>

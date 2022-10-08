@@ -8,7 +8,7 @@ import LengthSlider from "./LengthSlider";
 describe("pass config slider", () => {
   const baseConfig: ConfigState = {
     length: 16,
-    charsets: [],
+    charsets: { basic: [], advanced: [] },
     additionalChars: { include: "", exclude: "" },
   };
 

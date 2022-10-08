@@ -8,7 +8,7 @@ import CharFieldSet from "./CharFieldSet";
 describe("additional chars fields", () => {
   const baseConfig: ConfigState = {
     length: 2,
-    charsets: [],
+    charsets: { basic: [], advanced: [] },
     additionalChars: {
       include: "qwe",
       exclude: "asd",

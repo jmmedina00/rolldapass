@@ -7,17 +7,18 @@ import CharsetChip from "./CharsetChip";
 describe("charset chip component", () => {
   const baseConfig: ConfigState = {
     length: 2,
-    charsets: [],
+    charsets: { basic: [], advanced: [] },
     additionalChars: { include: "", exclude: "" },
   };
 
   it("should dispatch a toggle charset action when clicked", () => {
     const charset = "abc";
     const label = "Chip test";
-    const chip = <CharsetChip charsetDef={{ label, charset }} />;
+    const category = "basic";
+    const chip = <CharsetChip charsetDef={{ label, charset, category }} />;
 
     const expectedStore = setupStore({ config: baseConfig });
-    expectedStore.dispatch(toggleCharset(charset));
+    expectedStore.dispatch(toggleCharset({ charset, category }));
 
     const actualStore = setupStore({ config: baseConfig });
     const { getByText } = renderWithProviders(chip, { store: actualStore });

@@ -14,13 +14,13 @@ import {
 describe("config reducer", () => {
   const initialState: ConfigState = {
     length: 10,
-    charsets: [SPECIAL_CHARACTERS, LETTERS_LOWERCASE],
+    charsets: { basic: [SPECIAL_CHARACTERS, LETTERS_LOWERCASE], advanced: [] },
     additionalChars: { exclude: "qwe", include: "" },
   };
   it("should handle initial state", () => {
     expect(configReducer(undefined, { type: "???" })).toEqual({
       length: 8,
-      charsets: [LETTERS_UPPERCASE, DIGITS],
+      charsets: { basic: [LETTERS_UPPERCASE, DIGITS], advanced: [] },
       additionalChars: { exclude: "", include: "" },
     });
   });
@@ -31,20 +31,19 @@ describe("config reducer", () => {
   });
 
   it("should add a charset when it wasn't present before", () => {
-    const actual = configReducer(initialState, toggleCharset(DIGITS));
-    expect(actual.charsets).toEqual([
-      SPECIAL_CHARACTERS,
-      LETTERS_LOWERCASE,
-      DIGITS,
-    ]);
+    const actual = configReducer(
+      initialState,
+      toggleCharset({ charset: DIGITS, category: "advanced" })
+    );
+    expect(actual.charsets.advanced).toEqual([DIGITS]);
   });
 
   it("should remove a charset when it was present before", () => {
     const actual = configReducer(
       initialState,
-      toggleCharset(SPECIAL_CHARACTERS)
+      toggleCharset({ charset: SPECIAL_CHARACTERS, category: "basic" })
     );
-    expect(actual.charsets).toEqual([LETTERS_LOWERCASE]);
+    expect(actual.charsets.basic).toEqual([LETTERS_LOWERCASE]);
   });
 
   it("should update an additional charset", () => {

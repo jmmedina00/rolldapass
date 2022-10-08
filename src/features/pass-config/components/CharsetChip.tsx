@@ -4,17 +4,17 @@ import { CharsetDefinitionProperty } from "../constants";
 import { toggleCharset } from "../configSlice";
 
 const CharsetChip = ({
-  charsetDef: { label, charset },
+  charsetDef: { label, charset, category },
 }: CharsetDefinitionProperty) => {
   const dispatch = useAppDispatch();
 
   const enabled = useAppSelector((state) => {
-    const activeCharsets = state.config.charsets;
+    const activeCharsets = state.config.charsets[category];
     return !!activeCharsets.find((anyCharset) => anyCharset === charset);
   });
 
   const handleClick = () => {
-    dispatch(toggleCharset(charset));
+    dispatch(toggleCharset({ charset, category }));
   };
 
   return (

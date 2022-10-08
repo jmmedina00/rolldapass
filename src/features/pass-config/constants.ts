@@ -1,6 +1,9 @@
+import { CharsetCategory } from "./configSlice";
+
 export default interface CharsetDefinition {
   label: string;
   charset: string;
+  category: CharsetCategory;
 }
 
 export interface CharsetDefinitionProperty {
@@ -13,8 +16,12 @@ export const DIGITS = "0123456789";
 export const SPECIAL_CHARACTERS = "#$%&@^`~";
 
 export const charsetsBasic: CharsetDefinition[] = [
-  { label: "Uppercase (A-Z)", charset: LETTERS_UPPERCASE },
-  { label: "Lowercase (a-z)", charset: LETTERS_LOWERCASE },
-  { label: "Numbers (0-9)", charset: DIGITS },
-  { label: "Special characters", charset: SPECIAL_CHARACTERS },
+  { label: "Uppercase (A-Z)", charset: LETTERS_UPPERCASE, category: "basic" },
+  { label: "Lowercase (a-z)", charset: LETTERS_LOWERCASE, category: "basic" },
+  { label: "Numbers (0-9)", charset: DIGITS, category: "basic" },
+  {
+    label: "Special characters",
+    charset: SPECIAL_CHARACTERS,
+    category: "basic",
+  },
 ];

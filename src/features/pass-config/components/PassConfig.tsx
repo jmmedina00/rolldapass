@@ -3,8 +3,14 @@ import CharsetChip from "./CharsetChip";
 import { charsetsBasic } from "../constants";
 import LengthSlider from "./LengthSlider";
 import CharFieldSet from "./CharFieldSet";
+import { useAppSelector } from "../../../app/hooks";
+import { Settings } from "../../appbar-settings/constants";
 
 const PassConfig = () => {
+  const advancedConfig = useAppSelector(
+    (state) => state.settings.toggle[Settings.AdvancedConfig]
+  );
+
   return (
     <Box p={3}>
       <Typography variant="h6">Password length</Typography>
@@ -16,7 +22,7 @@ const PassConfig = () => {
           <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
         ))}
       </Grid>
-      <CharFieldSet />
+      {advancedConfig && <CharFieldSet />}
     </Box>
   );
 };

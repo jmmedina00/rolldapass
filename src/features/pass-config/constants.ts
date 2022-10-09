@@ -19,6 +19,17 @@ export const QUOTATION = "\"'";
 export const LINES = "\\/|_-";
 export const OPERATIONS = "<*+!?=";
 
+// Reimplement EASCII from: https://github.com/keepassxreboot/keepassxc/blob/develop/src/core/PasswordGenerator.cpp
+// https://www.ascii-code.com/
+
+const firstExtendedAsciiChar = 161;
+
+export const EXTENDED_ASCII = String.fromCharCode(
+  ...Array.from(Array(256 - firstExtendedAsciiChar).keys())
+    .map((n) => n + firstExtendedAsciiChar)
+    .filter((n) => n !== 0xad) // This one is not very useful
+);
+
 export const charsetsBasic: CharsetDefinition[] = [
   { label: "Uppercase (A-Z)", charset: LETTERS_UPPERCASE, category: "basic" },
   { label: "Lowercase (a-z)", charset: LETTERS_LOWERCASE, category: "basic" },
@@ -28,6 +39,7 @@ export const charsetsBasic: CharsetDefinition[] = [
     charset: SPECIAL_CHARACTERS,
     category: "basic",
   },
+  { label: "Extended ASCII", charset: EXTENDED_ASCII, category: "basic" },
 ];
 
 export const charsetsAdvanced: CharsetDefinition[] = [
@@ -39,6 +51,7 @@ export const charsetsAdvanced: CharsetDefinition[] = [
     charset: SPECIAL_CHARACTERS,
     category: "basic",
   },
+  { label: "Extended ASCII", charset: EXTENDED_ASCII, category: "basic" },
   { label: PUNCTUATION, charset: PUNCTUATION, category: "advanced" },
   { label: QUOTATION, charset: QUOTATION, category: "advanced" },
   { label: LINES, charset: LINES, category: "advanced" },

@@ -56,20 +56,24 @@ const PassField = () => {
     );
   };
 
-  useEffect(() => {
+  const refreshPassword = () => {
     const newPassword = generatePassword(
       config.length,
       advanced ? getAdvancedCharsets() : config.charsets.basic
     );
     dispatch(changePassword(newPassword));
-  }, [config, advanced, dispatch]);
+  };
+
+  useEffect(refreshPassword, [config, advanced, dispatch]);
 
   const passwordInputButtons = (
     <InputAdornment position="end">
       <IconButton onClick={handleClickShowPassword}>
         <Icon>{showPassword ? "visibility_off" : "visibility"}</Icon>
       </IconButton>
-      <Icon>cached</Icon>
+      <IconButton onClick={refreshPassword}>
+        <Icon>cached</Icon>
+      </IconButton>
       <Icon>content_paste</Icon>
     </InputAdornment>
   );

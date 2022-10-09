@@ -8,6 +8,7 @@ import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
 import configReducer from "../../pass-config/configSlice";
 import PassField from "./PassField";
+import { Settings } from "../../appbar-settings/constants";
 
 jest.mock("../services/generate-password");
 
@@ -50,12 +51,16 @@ describe("password generator", () => {
     expect(expectedStore.getState()).toEqual(actualStore.getState());
   });
 
-  it("should get a new password when config state changes", () => {
+  it("should get a new password when config state changes (basic)", () => {
     const store = setupStore({
       config: {
         length: 3,
-        charsets: ["ABCD"],
-        additionalChars: { include: "", exclude: "" },
+        charsets: { basic: ["ABCD"], advanced: ["1234"] },
+        additionalChars: { include: "&", exclude: "B" },
+      },
+      settings: {
+        settingsOpen: false,
+        toggle: { [Settings.AdvancedConfig]: false },
       },
     });
 
@@ -68,11 +73,33 @@ describe("password generator", () => {
     expect(generatePassword).toHaveBeenLastCalledWith(4, ["ABCD"]);
   });
 
+  it("should get a new password when config state changes (advanced)", () => {
+    const store = setupStore({
+      config: {
+        length: 3,
+        charsets: { basic: ["ABCD"], advanced: ["1234"] },
+        additionalChars: { include: "&2", exclude: "B" },
+      },
+      settings: {
+        settingsOpen: false,
+        toggle: { [Settings.AdvancedConfig]: true },
+      },
+    });
+
+    renderWithProviders(<PassField />, { store });
+
+    act(() => {
+      store.dispatch(changeLength(4));
+    });
+
+    expect(generatePassword).toHaveBeenLastCalledWith(4, ["ACD", "1234", "&"]);
+  });
+
   it("should change the password in state when config state changes", () => {
     const store = setupStore({
       config: {
         length: 3,
-        charsets: ["ABCD"],
+        charsets: { basic: ["ABCD"], advanced: [] },
         additionalChars: { include: "", exclude: "" },
       },
       passwordGenerator: { password: "old" },

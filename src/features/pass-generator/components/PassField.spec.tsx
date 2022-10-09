@@ -2,7 +2,7 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { changeLength } from "../../pass-config/configSlice";
+import { changeLength, ConfigState } from "../../pass-config/configSlice";
 import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
@@ -74,27 +74,44 @@ describe("password generator", () => {
     expect(generatePassword).toHaveBeenLastCalledWith(4, ["ABCD"]);
   });
 
-  it("should get a new password when config state changes (advanced)", () => {
-    const store = setupStore({
-      config: {
-        length: 3,
+  it.each([
+    [
+      {
         charsets: { basic: ["ABCD"], advanced: ["1234"] },
         additionalChars: { include: "&2", exclude: "B" },
       },
-      settings: {
-        settingsOpen: false,
-        toggle: { [Settings.AdvancedConfig]: true },
+      ["ACD", "1234", "&"],
+    ],
+    [
+      {
+        charsets: { basic: ["ABCD"], advanced: ["1234"] },
+        additionalChars: { include: "", exclude: "" },
       },
-    });
+      ["ABCD", "1234"],
+    ],
+  ])(
+    "should get a new password when config state changes (advanced)",
+    (charsetInfo: Omit<ConfigState, "length">, expectedCharsets: string[]) => {
+      const store = setupStore({
+        config: {
+          ...charsetInfo,
+          length: 3,
+        },
+        settings: {
+          settingsOpen: false,
+          toggle: { [Settings.AdvancedConfig]: true },
+        },
+      });
 
-    renderWithProviders(<PassField />, { store });
+      renderWithProviders(<PassField />, { store });
 
-    act(() => {
-      store.dispatch(changeLength(4));
-    });
+      act(() => {
+        store.dispatch(changeLength(4));
+      });
 
-    expect(generatePassword).toHaveBeenLastCalledWith(4, ["ACD", "1234", "&"]);
-  });
+      expect(generatePassword).toHaveBeenLastCalledWith(4, expectedCharsets);
+    }
+  );
 
   it("should change the password in state when config state changes", () => {
     const store = setupStore({

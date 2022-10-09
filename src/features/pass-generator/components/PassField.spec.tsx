@@ -7,6 +7,7 @@ import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
 import configReducer from "../../pass-config/configSlice";
+import settingsReducer from "../../appbar-settings/settingsSlice";
 import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
 
@@ -119,6 +120,7 @@ describe("password generator", () => {
         passwordGenerator: passwordReducer,
         unrelated: unrelatedSlice.reducer,
         config: configReducer,
+        settings: settingsReducer,
       }),
     });
 

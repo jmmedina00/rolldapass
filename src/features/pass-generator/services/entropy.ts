@@ -48,7 +48,7 @@ const keepass: EntropyAlgorithm = {
     const entropy = PasswordQualityCalculator(password);
 
     return {
-      strengthPercent: (entropy / 128) * 100,
+      strengthPercent: ((entropy >= 128 ? 128 : entropy) / 128) * 100,
       info: `Entropy: ${entropy} bits`,
     };
   },

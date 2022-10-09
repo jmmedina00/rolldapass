@@ -48,12 +48,14 @@ const PassField = () => {
       )
     ).join("");
 
-    return [...baseCharsets, include].map((charset) =>
-      charset
-        .split("")
-        .filter((char) => config.additionalChars.exclude.indexOf(char) === -1)
-        .join("")
-    );
+    return [...baseCharsets, include]
+      .map((charset) =>
+        charset
+          .split("")
+          .filter((char) => config.additionalChars.exclude.indexOf(char) === -1)
+          .join("")
+      )
+      .filter((charset) => charset !== "");
   };
 
   const refreshPassword = () => {

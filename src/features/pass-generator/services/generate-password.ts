@@ -10,10 +10,11 @@ export const generatePassword = (
   );
 
   do {
-    const generatedPassword = Array.from(
-      crypto.getRandomValues(new Uint32Array(length))
-    )
-      .map((n) => charsCombined[n % charsCombined.length])
+    const generatedPassword = Array.from(Array(length).keys())
+      .map(() => {
+        const index = Math.floor(Math.random() * charsCombined.length);
+        return charsCombined[index];
+      })
       .join("");
 
     const charsetsFirstFound = charsets.map((charset) =>

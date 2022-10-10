@@ -29,7 +29,12 @@ describe("password generator", () => {
 
   it("should reflect the password in store", () => {
     const { getByDisplayValue } = renderWithProviders(<PassField />, {
-      preloadedState: { passwordGenerator: { password: presetPassword } },
+      preloadedState: {
+        passwordGenerator: {
+          password: presetPassword,
+          copiedTimeout: undefined,
+        },
+      },
     });
 
     expect(getByDisplayValue(presetPassword)).toBeInTheDocument();
@@ -120,7 +125,7 @@ describe("password generator", () => {
         charsets: { basic: ["ABCD"], advanced: [] },
         additionalChars: { include: "", exclude: "" },
       },
-      passwordGenerator: { password: "old" },
+      passwordGenerator: { password: "old", copiedTimeout: undefined },
     });
 
     renderWithProviders(<PassField />, { store });

@@ -13,7 +13,7 @@ describe("pass entropy display", () => {
   it("should calculate entropy of current password", () => {
     const { getByText } = renderWithProviders(<PassEntropy />, {
       preloadedState: {
-        passwordGenerator: { password },
+        passwordGenerator: { password, copiedTimeout: undefined },
         passwordHealth: { entropy: defaultEntropy },
       },
     });
@@ -25,7 +25,7 @@ describe("pass entropy display", () => {
 
   it("should refresh when password changes", () => {
     const store = setupStore({
-      passwordGenerator: { password },
+      passwordGenerator: { password, copiedTimeout: undefined },
       passwordHealth: { entropy: defaultEntropy },
     });
 
@@ -45,7 +45,7 @@ describe("pass entropy display", () => {
 
   it("should refresh when selected entropy changes", () => {
     const store = setupStore({
-      passwordGenerator: { password },
+      passwordGenerator: { password, copiedTimeout: undefined },
       passwordHealth: { entropy: defaultEntropy },
     });
     const { getByText } = renderWithProviders(<PassEntropy />, {

@@ -36,7 +36,9 @@ export const passwordSlice = createSlice({
 });
 
 export const clearClipboard =
-  (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) => {
+  (): ThunkAction<void, RootState, unknown, AnyAction> =>
+  async (dispatch, getState) => {
+    clearTimeout(getState().passwordGenerator.copiedTimeout);
     await window.navigator.clipboard.writeText("");
     dispatch(clearTimeoutId());
   };

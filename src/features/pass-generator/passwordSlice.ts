@@ -39,8 +39,8 @@ export const clearClipboard =
   (): ThunkAction<void, RootState, unknown, AnyAction> =>
   async (dispatch, getState) => {
     clearTimeout(getState().passwordGenerator.copiedTimeout);
-    await window.navigator.clipboard.writeText("");
     dispatch(clearTimeoutId());
+    await window.navigator.clipboard.writeText("");
   };
 
 export const copyPasswordToClipboard =

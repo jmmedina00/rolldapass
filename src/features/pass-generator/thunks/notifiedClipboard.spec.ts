@@ -75,7 +75,7 @@ describe("notified clipboard thunks", () => {
 
     expectedStore.dispatch(
       setupNotification({
-        type: NotificationType.normal,
+        type: NotificationType.clipboard,
         severity: "error",
         message: "Failed to clear clipboard",
       })

@@ -10,7 +10,9 @@ import configReducer from "../../pass-config/configSlice";
 import settingsReducer from "../../appbar-settings/settingsSlice";
 import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
+import { clearClipboard } from "../thunks/notifiedClipboard";
 
+jest.mock("../thunks/notifiedClipboard");
 jest.mock("../services/generate-password");
 
 const unrelatedSlice = createSlice({
@@ -26,6 +28,10 @@ const unrelatedSlice = createSlice({
 describe("password generator", () => {
   const presetPassword = "abcd";
   const inputLabel = "Generate your password";
+
+  beforeEach(() => {
+    (clearClipboard as jest.Mock).mockReturnValue(() => ({}));
+  });
 
   it("should reflect the password in store", () => {
     const { getByDisplayValue } = renderWithProviders(<PassField />, {
@@ -134,6 +140,24 @@ describe("password generator", () => {
     });
 
     expect(store.getState().passwordGenerator.password).not.toEqual("old");
+  });
+
+  it("should call clear clipboard thunk when the password changes", () => {
+    const store = setupStore({
+      config: {
+        length: 3,
+        charsets: { basic: ["ABCD"], advanced: [] },
+        additionalChars: { include: "", exclude: "" },
+      },
+      passwordGenerator: { password: "old", copiedTimeout: undefined },
+    });
+
+    renderWithProviders(<PassField />, { store });
+    act(() => {
+      store.dispatch(changeLength(4));
+    });
+
+    expect(clearClipboard).toHaveBeenCalled();
   });
 
   it("should keep the current password in state when something unrelated in state changes", () => {

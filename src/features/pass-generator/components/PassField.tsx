@@ -9,12 +9,12 @@ import {
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
-import {
-  NotificationType,
-  setupNotification,
-} from "../../notification/notificationSlice";
 import { changePassword } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
+import {
+  clearClipboard,
+  copyPasswordToClipboard,
+} from "../thunks/notifiedClipboard";
 
 const PassField = () => {
   const dispatch = useAppDispatch();
@@ -35,14 +35,7 @@ const PassField = () => {
   };
 
   const handleCopyToClipboard = async () => {
-    await window.navigator.clipboard.writeText(password);
-    dispatch(
-      setupNotification({
-        type: NotificationType.normal,
-        message: "Password copied to clipboard",
-        severity: "success",
-      })
-    );
+    dispatch(copyPasswordToClipboard());
   };
 
   const getAdvancedCharsets = () => {
@@ -79,7 +72,7 @@ const PassField = () => {
       advanced ? getAdvancedCharsets() : config.charsets.basic
     );
     dispatch(changePassword(newPassword));
-    window.navigator.clipboard.writeText("");
+    dispatch(clearClipboard());
   };
 
   useEffect(refreshPassword, [config, advanced, dispatch]);

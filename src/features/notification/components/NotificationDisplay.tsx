@@ -21,9 +21,9 @@ const NotificationDisplay = () => {
       <Alert
         severity={severity}
         action={
-          type !== NotificationType.normal ? <ClipboardClearButton /> : null
+          type === NotificationType.clipboard ? <ClipboardClearButton /> : null
         }
-        onClose={type == NotificationType.normal ? handleClose : undefined}
+        onClose={type === NotificationType.normal ? handleClose : undefined}
       >
         {message}
       </Alert>

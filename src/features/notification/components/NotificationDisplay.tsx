@@ -17,7 +17,6 @@ const NotificationDisplay = () => {
   return (
     <Snackbar
       open={open}
-      message={message}
       anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
     >
       <Alert
@@ -25,7 +24,7 @@ const NotificationDisplay = () => {
         action={type !== NotificationType.normal ? action : null}
         onClose={type == NotificationType.normal ? handleClose : undefined}
       >
-        Test
+        {message}
       </Alert>
     </Snackbar>
   );

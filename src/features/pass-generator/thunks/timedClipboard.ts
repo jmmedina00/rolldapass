@@ -1,6 +1,6 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { clearTimeoutId, setTimeoutId } from "./passwordSlice";
+import { RootState } from "../../../app/store";
+import { clearTimeoutId, setTimeoutId } from "../passwordSlice";
 
 // Abandoned - clipboard actions on a timer don't work reliably
 

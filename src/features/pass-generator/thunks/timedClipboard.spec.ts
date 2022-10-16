@@ -1,5 +1,5 @@
-import { setupStore } from "../../app/store";
-import { clearClipboard, copyPasswordToClipboard } from "./clipboardThunk";
+import { setupStore } from "../../../app/store";
+import { clearClipboard, copyPasswordToClipboard } from "./timedClipboard";
 
 // https://stackoverflow.com/questions/62351935/how-to-mock-navigator-clipboard-writetext-in-jest
 
@@ -9,7 +9,7 @@ Object.assign(navigator, {
   },
 });
 
-describe("clipboard thunks", () => {
+describe("timed clipboard thunks", () => {
   jest.spyOn(navigator.clipboard, "writeText");
 
   beforeAll(() => {

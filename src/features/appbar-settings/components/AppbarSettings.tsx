@@ -1,8 +1,11 @@
 import {
   AppBar,
+  Dialog,
   Drawer,
   Icon,
   IconButton,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -11,9 +14,31 @@ import DrawerContents from "./DrawerContents";
 
 const AppBarSettings = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
+  const menuOpen = !!anchorMenu;
+  const [aboutOpen, setAboutOpen] = useState<boolean>(false);
 
   const handleDrawerChange = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const handleMenuButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorMenu(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorMenu(null);
+  };
+
+  const handleOpenAbout = () => {
+    setAnchorMenu(null);
+    setAboutOpen(true);
+  };
+
+  const handleCloseAbout = () => {
+    setAboutOpen(false);
   };
 
   return (
@@ -39,7 +64,9 @@ const AppBarSettings = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Rolldapass
           </Typography>
-          <Icon>more_vert</Icon>
+          <IconButton onClick={handleMenuButtonClick}>
+            <Icon>more_vert</Icon>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -70,6 +97,18 @@ const AppBarSettings = () => {
         </IconButton>
         <DrawerContents />
       </Drawer>
+      <Menu
+        anchorEl={anchorMenu}
+        open={menuOpen}
+        onClose={handleCloseMenu}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem>Language: English</MenuItem>
+        <MenuItem onClick={handleOpenAbout}>About</MenuItem>
+      </Menu>
+      <Dialog open={aboutOpen} onClose={handleCloseAbout}>
+        <Typography variant="body1">Testing</Typography>
+      </Dialog>
     </div>
   );
 };

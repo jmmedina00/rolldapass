@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Dialog,
   Drawer,
   Icon,
   IconButton,
@@ -10,13 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import About from "./About";
 import DrawerContents from "./DrawerContents";
 
 const AppBarSettings = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
   const menuOpen = !!anchorMenu;
-  const [aboutOpen, setAboutOpen] = useState<boolean>(false);
 
   const handleDrawerChange = () => {
     setDrawerOpen(!drawerOpen);
@@ -34,11 +33,7 @@ const AppBarSettings = () => {
 
   const handleOpenAbout = () => {
     setAnchorMenu(null);
-    setAboutOpen(true);
-  };
-
-  const handleCloseAbout = () => {
-    setAboutOpen(false);
+    /* setAboutOpen(true); */
   };
 
   return (
@@ -106,9 +101,7 @@ const AppBarSettings = () => {
         <MenuItem>Language: English</MenuItem>
         <MenuItem onClick={handleOpenAbout}>About</MenuItem>
       </Menu>
-      <Dialog open={aboutOpen} onClose={handleCloseAbout}>
-        <Typography variant="body1">Testing</Typography>
-      </Dialog>
+      <About />
     </div>
   );
 };

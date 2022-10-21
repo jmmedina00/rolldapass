@@ -2,6 +2,7 @@ import {
   Box,
   Dialog,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   Grid,
   Tab,
@@ -17,7 +18,9 @@ interface TabPanelProps {
 }
 
 const TabPanel = ({ children, index, value }: TabPanelProps) => (
-  <Box sx={{ display: index === value ? "inherit" : "none" }}>{children}</Box>
+  <Box sx={{ display: index === value ? "inherit" : "none" }}>
+    <DialogContentText>{children}</DialogContentText>
+  </Box>
 );
 
 const About = () => {

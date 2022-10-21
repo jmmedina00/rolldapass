@@ -5,6 +5,8 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
+  Icon,
+  IconButton,
   Link,
   Tab,
   Tabs,
@@ -42,7 +44,12 @@ const About = () => {
 
   return (
     <Dialog open={aboutOpen} onClose={handleCloseAbout}>
-      <DialogTitle>About</DialogTitle>
+      <DialogTitle sx={{ display: "flex" }}>
+        <Box sx={{ flexGrow: 1, lineHeight: 1.9 }}>About</Box>
+        <IconButton onClick={handleCloseAbout}>
+          <Icon>close</Icon>
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <Grid container>
           <Grid item xs={3}>

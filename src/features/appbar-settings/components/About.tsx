@@ -10,6 +10,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+const TabPanel = ({ children, index, value }: TabPanelProps) => (
+  <Box sx={{ display: index === value ? "inherit" : "none" }}>{children}</Box>
+);
+
 const About = () => {
   const [aboutOpen, setAboutOpen] = useState<boolean>(true);
   const [tabValue, setTabValue] = useState<number>(0);
@@ -43,6 +53,15 @@ const About = () => {
           <Tab label="Libraries" />
           <Tab label="Other" />
         </Tabs>
+        <TabPanel value={tabValue} index={0}>
+          Test A
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          Test B
+        </TabPanel>
+        <TabPanel value={tabValue} index={2}>
+          Test C
+        </TabPanel>
       </DialogContent>
     </Dialog>
   );

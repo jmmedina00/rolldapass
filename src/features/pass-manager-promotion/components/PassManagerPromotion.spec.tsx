@@ -17,6 +17,7 @@ describe("pass manager promotion", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.PassManagerOrganized]: false },
         },
       },
@@ -36,6 +37,7 @@ describe("pass manager promotion", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.PassManagerOrganized]: true },
         },
       },

@@ -72,6 +72,7 @@ describe("password generator", () => {
       },
       settings: {
         settingsOpen: false,
+        aboutOpen: false,
         toggle: { [Settings.AdvancedConfig]: false },
       },
     });
@@ -110,6 +111,7 @@ describe("password generator", () => {
         },
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.AdvancedConfig]: true },
         },
       });

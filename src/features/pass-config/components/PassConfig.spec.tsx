@@ -10,6 +10,7 @@ describe("pass configuration", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.AdvancedConfig]: false },
         },
       },
@@ -23,6 +24,7 @@ describe("pass configuration", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.AdvancedConfig]: true },
         },
       },
@@ -36,6 +38,7 @@ describe("pass configuration", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.AdvancedConfig]: true },
         },
       },
@@ -49,6 +52,7 @@ describe("pass configuration", () => {
       preloadedState: {
         settings: {
           settingsOpen: false,
+          aboutOpen: false,
           toggle: { [Settings.AdvancedConfig]: false },
         },
       },

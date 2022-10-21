@@ -13,7 +13,11 @@ describe("setting toggle", () => {
       <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
       {
         preloadedState: {
-          settings: { settingsOpen: false, toggle: { test: true } },
+          settings: {
+            settingsOpen: false,
+            aboutOpen: false,
+            toggle: { test: true },
+          },
         },
       }
     );
@@ -27,7 +31,11 @@ describe("setting toggle", () => {
       <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
       {
         preloadedState: {
-          settings: { settingsOpen: false, toggle: { test: false } },
+          settings: {
+            settingsOpen: false,
+            aboutOpen: false,
+            toggle: { test: false },
+          },
         },
       }
     );
@@ -38,12 +46,20 @@ describe("setting toggle", () => {
 
   it("should dispatch toggle action when toggled", () => {
     const expectedStore = setupStore({
-      settings: { settingsOpen: true, toggle: { test: true } },
+      settings: {
+        settingsOpen: true,
+        aboutOpen: false,
+        toggle: { test: true },
+      },
     });
     expectedStore.dispatch(toggleSetting("test"));
 
     const actualStore = setupStore({
-      settings: { settingsOpen: true, toggle: { test: true } },
+      settings: {
+        settingsOpen: true,
+        aboutOpen: false,
+        toggle: { test: true },
+      },
     });
 
     const { getByRole } = renderWithProviders(
@@ -64,12 +80,20 @@ describe("setting toggle", () => {
 
   it("should dispatch initialize action if the setting is missing", () => {
     const expectedStore = setupStore({
-      settings: { settingsOpen: true, toggle: { unrelated: false } },
+      settings: {
+        settingsOpen: true,
+        aboutOpen: false,
+        toggle: { unrelated: false },
+      },
     });
     expectedStore.dispatch(initializeSetting("test"));
 
     const actualStore = setupStore({
-      settings: { settingsOpen: true, toggle: { unrelated: false } },
+      settings: {
+        settingsOpen: true,
+        aboutOpen: false,
+        toggle: { unrelated: false },
+      },
     });
 
     renderWithProviders(

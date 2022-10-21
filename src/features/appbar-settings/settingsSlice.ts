@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface SettingsState {
   settingsOpen: boolean;
+  aboutOpen: boolean;
   toggle: {
     [key: string]: boolean;
   };
@@ -9,6 +10,7 @@ export interface SettingsState {
 
 const initialState: SettingsState = {
   settingsOpen: false,
+  aboutOpen: false,
   toggle: {},
 };
 
@@ -16,6 +18,8 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
+    openAbout: (state: SettingsState) => ({ ...state, aboutOpen: true }),
+    closeAbout: (state: SettingsState) => ({ ...state, aboutOpen: false }),
     toggleDrawer: (state: SettingsState) => {
       const isOpen = !state.settingsOpen;
       return { ...state, settingsOpen: isOpen };
@@ -35,6 +39,11 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { toggleDrawer, toggleSetting, initializeSetting } =
-  settingsSlice.actions;
+export const {
+  openAbout,
+  closeAbout,
+  toggleDrawer,
+  toggleSetting,
+  initializeSetting,
+} = settingsSlice.actions;
 export default settingsSlice.reducer;

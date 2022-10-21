@@ -1,5 +1,7 @@
 import settingsReducer, {
+  closeAbout,
   initializeSetting,
+  openAbout,
   SettingsState,
   toggleDrawer,
   toggleSetting,
@@ -8,6 +10,7 @@ import settingsReducer, {
 describe("settings reducer", () => {
   const initialState: SettingsState = {
     settingsOpen: false,
+    aboutOpen: false,
     toggle: {
       done: true,
       pending: false,
@@ -17,6 +20,7 @@ describe("settings reducer", () => {
   it("should handle initial state", () => {
     expect(settingsReducer(undefined, { type: "???" })).toEqual({
       settingsOpen: false,
+      aboutOpen: false,
       toggle: {},
     });
   });
@@ -57,6 +61,17 @@ describe("settings reducer", () => {
       settingsReducer(initialState, initializeSetting("unknown")).toggle[
         "unknown"
       ]
+    ).toBeFalsy();
+  });
+
+  it("should open the about", () => {
+    expect(settingsReducer(initialState, openAbout()).aboutOpen).toBeTruthy();
+  });
+
+  it("should open the about", () => {
+    expect(
+      settingsReducer({ ...initialState, aboutOpen: true }, closeAbout())
+        .aboutOpen
     ).toBeFalsy();
   });
 });

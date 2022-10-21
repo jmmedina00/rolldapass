@@ -9,10 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { openAbout } from "../settingsSlice";
 import About from "./About";
 import DrawerContents from "./DrawerContents";
 
 const AppBarSettings = () => {
+  const dispatch = useAppDispatch();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
   const menuOpen = !!anchorMenu;
@@ -33,7 +36,7 @@ const AppBarSettings = () => {
 
   const handleOpenAbout = () => {
     setAnchorMenu(null);
-    /* setAboutOpen(true); */
+    dispatch(openAbout());
   };
 
   return (

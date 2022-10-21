@@ -13,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { closeAbout } from "../settingsSlice";
 
 const linkedinSpam =
   "https://www.linkedin.com/in/juan-miguel-medina-prieto-88926715a/";
@@ -31,11 +33,12 @@ const TabPanel = ({ children, index, value }: TabPanelProps) => (
 );
 
 const About = () => {
-  const [aboutOpen, setAboutOpen] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const aboutOpen = useAppSelector((state) => state.settings.aboutOpen);
   const [tabValue, setTabValue] = useState<number>(0);
 
   const handleCloseAbout = () => {
-    setAboutOpen(false);
+    dispatch(closeAbout());
   };
 
   const handleChangeTab = (event: React.SyntheticEvent, newTab: number) => {

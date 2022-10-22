@@ -17,7 +17,11 @@ describe("notified clipboard thunks", () => {
 
   it("should close notification when clearing the clipboard", async () => {
     const expectedStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",
@@ -29,7 +33,11 @@ describe("notified clipboard thunks", () => {
     expectedStore.dispatch(closeNotification());
 
     const actualStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",
@@ -44,7 +52,11 @@ describe("notified clipboard thunks", () => {
 
   it("should call the clipboard API when clearing the clipboard", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",
@@ -64,7 +76,11 @@ describe("notified clipboard thunks", () => {
     ).mockRejectedValue("rejected");
 
     const expectedStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",
@@ -82,7 +98,11 @@ describe("notified clipboard thunks", () => {
     );
 
     const actualStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",
@@ -97,7 +117,11 @@ describe("notified clipboard thunks", () => {
 
   it("should setup notification when copying password to clipboard", async () => {
     const expectedStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: false,
         message: "Test",
@@ -115,7 +139,11 @@ describe("notified clipboard thunks", () => {
     );
 
     const actualStore = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: false,
         message: "Test",
@@ -134,7 +162,11 @@ describe("notified clipboard thunks", () => {
 
   it("should call the clipboard API when copying password", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
       notification: {
         open: true,
         message: "Test",

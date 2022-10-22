@@ -4,7 +4,6 @@ import entropy from "../services/entropy";
 import { setupStore } from "../../../app/store";
 import { changePassword } from "../passwordSlice";
 import { act } from "react-dom/test-utils";
-import { fireEvent } from "@testing-library/react";
 import { changeEntropy } from "../passHealthSlice";
 
 describe("pass entropy display", () => {
@@ -13,7 +12,11 @@ describe("pass entropy display", () => {
   it("should calculate entropy of current password", () => {
     const { getByText } = renderWithProviders(<PassEntropy />, {
       preloadedState: {
-        passwordGenerator: { password, copiedTimeout: undefined },
+        passwordGenerator: {
+          password,
+          copiedTimeout: undefined,
+          pwnedResult: "none",
+        },
         passwordHealth: { entropy: defaultEntropy },
       },
     });
@@ -25,7 +28,11 @@ describe("pass entropy display", () => {
 
   it("should refresh when password changes", () => {
     const store = setupStore({
-      passwordGenerator: { password, copiedTimeout: undefined },
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
       passwordHealth: { entropy: defaultEntropy },
     });
 
@@ -45,7 +52,11 @@ describe("pass entropy display", () => {
 
   it("should refresh when selected entropy changes", () => {
     const store = setupStore({
-      passwordGenerator: { password, copiedTimeout: undefined },
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
       passwordHealth: { entropy: defaultEntropy },
     });
     const { getByText } = renderWithProviders(<PassEntropy />, {

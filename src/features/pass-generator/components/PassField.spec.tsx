@@ -39,6 +39,7 @@ describe("password generator", () => {
         passwordGenerator: {
           password: presetPassword,
           copiedTimeout: undefined,
+          pwnedResult: "none",
         },
       },
     });
@@ -133,7 +134,11 @@ describe("password generator", () => {
         charsets: { basic: ["ABCD"], advanced: [] },
         additionalChars: { include: "", exclude: "" },
       },
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
 
     renderWithProviders(<PassField />, { store });
@@ -151,7 +156,11 @@ describe("password generator", () => {
         charsets: { basic: ["ABCD"], advanced: [] },
         additionalChars: { include: "", exclude: "" },
       },
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
 
     renderWithProviders(<PassField />, { store });

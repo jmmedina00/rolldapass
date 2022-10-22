@@ -27,7 +27,11 @@ describe("timed clipboard thunks", () => {
 
   it("should remove timeout reference when clearing clipboard", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
     });
     await clearClipboard()(store.dispatch, store.getState, null);
 
@@ -36,7 +40,11 @@ describe("timed clipboard thunks", () => {
 
   it("should handle clearing the clipboard", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: 12 },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: 12,
+        pwnedResult: "none",
+      },
     });
     await clearClipboard()(store.dispatch, store.getState, null);
 
@@ -45,7 +53,11 @@ describe("timed clipboard thunks", () => {
 
   it("should create a timer and reflect it in the store when copying pass to clipboard", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
     await copyPasswordToClipboard()(store.dispatch, store.getState, null);
 
@@ -55,7 +67,11 @@ describe("timed clipboard thunks", () => {
 
   it("should copy the password to clipboard", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
     await copyPasswordToClipboard()(store.dispatch, store.getState, null);
 
@@ -64,7 +80,11 @@ describe("timed clipboard thunks", () => {
 
   it("should remove timer reference when copy timer runs out", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
     await copyPasswordToClipboard()(store.dispatch, store.getState, null);
 
@@ -76,7 +96,11 @@ describe("timed clipboard thunks", () => {
 
   it("should clear clipboard when copy timer runs out", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
     await copyPasswordToClipboard()(store.dispatch, store.getState, null);
 
@@ -89,7 +113,11 @@ describe("timed clipboard thunks", () => {
 
   it("should create a timer to clear that lasts 10 seconds", async () => {
     const store = setupStore({
-      passwordGenerator: { password: "old", copiedTimeout: undefined },
+      passwordGenerator: {
+        password: "old",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
     });
     await copyPasswordToClipboard()(store.dispatch, store.getState, null);
 

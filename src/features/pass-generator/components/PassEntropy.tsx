@@ -1,8 +1,13 @@
 import { LinearProgress, LinearProgressProps, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
+import {
+  Notification,
+  NotificationType,
+  setupNotification,
+} from "../../notification/notificationSlice";
 import { PasswordState } from "../passwordSlice";
 import entropyService from "../services/entropy";
 
@@ -16,7 +21,22 @@ const colors: {
   error: "error",
 };
 
+const notifications: { [key: string]: Notification } = {
+  success: {
+    type: NotificationType.normal,
+    message: "Password checked successfully",
+    severity: "success",
+  },
+  error: {
+    type: NotificationType.pwned,
+    message:
+      "Password found (or an error occurred). You may not copy this password",
+    severity: "error",
+  },
+};
+
 const PassEntropy = () => {
+  const dispatch = useAppDispatch();
   const password = useAppSelector((state) => state.passwordGenerator.password);
   const entropy = useAppSelector((state) => state.passwordHealth.entropy);
   const color = useAppSelector((state) =>
@@ -34,6 +54,13 @@ const PassEntropy = () => {
     setPercent(strengthPercent);
     setInfo(info);
   }, [password, entropy]);
+
+  useEffect(() => {
+    if (!(color && ["success", "error"].includes(color))) {
+      return;
+    }
+    dispatch(setupNotification(notifications[color]));
+  }, [color]);
 
   return (
     <Box>

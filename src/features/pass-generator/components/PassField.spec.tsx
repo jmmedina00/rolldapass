@@ -3,7 +3,7 @@ import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { changeLength, ConfigState } from "../../pass-config/configSlice";
-import { changePassword } from "../passwordSlice";
+import { changePassword, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
 import configReducer from "../../pass-config/configSlice";
@@ -228,5 +228,44 @@ describe("password generator", () => {
     jest.runAllTimers();
 
     expect((checkPassword as jest.Mock).mock.lastCall[0]).toEqual("qwerty");
+  });
+
+  it("should reset pwned status when password changes", () => {
+    const expectedStore = setupStore({
+      passwordGenerator: {
+        password: "abcd",
+        copiedTimeout: undefined,
+        pwnedResult: "good",
+      },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+    });
+    expectedStore.dispatch(resetPwned());
+
+    const actualStore = setupStore({
+      passwordGenerator: {
+        password: "abcd",
+        copiedTimeout: undefined,
+        pwnedResult: "good",
+      },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+    });
+
+    renderWithProviders(<PassField />, { store: actualStore });
+
+    act(() => {
+      actualStore.dispatch(changePassword("qwerty"));
+    });
+
+    expect(expectedStore.getState().passwordGenerator.pwnedResult).toEqual(
+      actualStore.getState().passwordGenerator.pwnedResult
+    );
   });
 });

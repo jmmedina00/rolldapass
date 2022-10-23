@@ -9,7 +9,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
-import { changePassword, checkIfPwned } from "../passwordSlice";
+import { changePassword, checkIfPwned, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import {
   clearClipboard,
@@ -80,6 +80,7 @@ const PassField = () => {
   useEffect(refreshPassword, [config, advanced, dispatch]);
 
   useEffect(() => {
+    dispatch(resetPwned());
     clearTimeout(pwnedTimer.current);
     pwnedTimer.current = undefined;
 

@@ -25,6 +25,10 @@ const PassField = () => {
     [Settings.AdvancedConfig]: advanced,
     [Settings.HaveIBeenPwned]: usePwned,
   } = useAppSelector((state) => state.settings.toggle);
+  const disableCopyToClipboard = useAppSelector(
+    (state) => usePwned && state.passwordGenerator.pwnedResult !== "good"
+  );
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const pwnedTimer = useRef<number | undefined>(undefined);
 
@@ -103,7 +107,10 @@ const PassField = () => {
       <IconButton onClick={refreshPassword}>
         <Icon>cached</Icon>
       </IconButton>
-      <IconButton onClick={handleCopyToClipboard}>
+      <IconButton
+        onClick={handleCopyToClipboard}
+        disabled={disableCopyToClipboard}
+      >
         <Icon>content_paste</Icon>
       </IconButton>
     </InputAdornment>

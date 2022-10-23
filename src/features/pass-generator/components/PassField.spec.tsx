@@ -11,9 +11,11 @@ import settingsReducer from "../../appbar-settings/settingsSlice";
 import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
 import { clearClipboard } from "../thunks/notifiedClipboard";
+import { checkPassword } from "../services/haveIBeenPwned";
 
 jest.mock("../thunks/notifiedClipboard");
 jest.mock("../services/generate-password");
+jest.mock("../services/haveIBeenPwned"); // called by password slice thunk
 
 const unrelatedSlice = createSlice({
   name: "unrelated",
@@ -29,8 +31,21 @@ describe("password generator", () => {
   const presetPassword = "abcd";
   const inputLabel = "Generate your password";
 
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   beforeEach(() => {
     (clearClipboard as jest.Mock).mockReturnValue(() => ({}));
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
+
+  afterAll(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it("should reflect the password in store", () => {
@@ -188,5 +203,30 @@ describe("password generator", () => {
     });
 
     expect(store.getState().passwordGenerator.password).toEqual("thisisGood");
+  });
+
+  it("should send password to HIBP after timer", () => {
+    const store = setupStore({
+      passwordGenerator: {
+        password: "abcd",
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+    });
+
+    renderWithProviders(<PassField />, { store });
+
+    act(() => {
+      store.dispatch(changePassword("qwerty"));
+    });
+
+    jest.runAllTimers();
+
+    expect((checkPassword as jest.Mock).mock.lastCall[0]).toEqual("qwerty");
   });
 });

@@ -5,6 +5,11 @@ import { setupStore } from "../../../app/store";
 import { changePassword } from "../passwordSlice";
 import { act } from "react-dom/test-utils";
 import { changeEntropy } from "../passHealthSlice";
+import { Settings } from "../../appbar-settings/constants";
+import {
+  NotificationType,
+  setupNotification,
+} from "../../notification/notificationSlice";
 
 describe("pass entropy display", () => {
   const password = "1234qwer";
@@ -70,5 +75,134 @@ describe("pass entropy display", () => {
     });
 
     expect(getByText(expected.info)).toBeInTheDocument();
+  });
+
+  it("should process successful pwned result", () => {
+    const expectedStore = setupStore({
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
+      passwordHealth: { entropy: defaultEntropy },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+      notification: {
+        type: NotificationType.normal,
+        message: "",
+        severity: "info",
+        open: false,
+      },
+    });
+    expectedStore.dispatch({
+      type: "passwordGenerator/checkIfPwned/fulfilled",
+      payload: false,
+    });
+    expectedStore.dispatch(
+      setupNotification({
+        type: NotificationType.normal,
+        message: "Password checked successfully",
+        severity: "success",
+      })
+    );
+
+    const actualStore = setupStore({
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
+      passwordHealth: { entropy: defaultEntropy },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+      notification: {
+        type: NotificationType.normal,
+        message: "",
+        severity: "info",
+        open: false,
+      },
+    });
+
+    renderWithProviders(<PassEntropy />, { store: actualStore });
+
+    act(() => {
+      actualStore.dispatch({
+        type: "passwordGenerator/checkIfPwned/fulfilled",
+        payload: false,
+      });
+    });
+
+    expect(expectedStore.getState()).toEqual(actualStore.getState());
+  });
+
+  it("should process bad pwned result", () => {
+    const expectedStore = setupStore({
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
+      passwordHealth: { entropy: defaultEntropy },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+      notification: {
+        type: NotificationType.normal,
+        message: "",
+        severity: "info",
+        open: false,
+      },
+    });
+    expectedStore.dispatch({
+      type: "passwordGenerator/checkIfPwned/fulfilled",
+      payload: true,
+    });
+    expectedStore.dispatch(
+      setupNotification({
+        type: NotificationType.pwned,
+        message:
+          "Password found (or an error occurred). You may not copy this password",
+        severity: "error",
+      })
+    );
+
+    const actualStore = setupStore({
+      passwordGenerator: {
+        password,
+        copiedTimeout: undefined,
+        pwnedResult: "none",
+      },
+      passwordHealth: { entropy: defaultEntropy },
+      settings: {
+        settingsOpen: false,
+        aboutOpen: false,
+        toggle: { [Settings.HaveIBeenPwned]: true },
+      },
+      notification: {
+        type: NotificationType.normal,
+        message: "",
+        severity: "info",
+        open: false,
+      },
+    });
+
+    renderWithProviders(<PassEntropy />, { store: actualStore });
+
+    act(() => {
+      actualStore.dispatch({
+        type: "passwordGenerator/checkIfPwned/fulfilled",
+        payload: true,
+      });
+    });
+
+    expect(expectedStore.getState()).toEqual(actualStore.getState());
   });
 });

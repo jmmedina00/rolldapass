@@ -6,10 +6,10 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
-import { changePassword } from "../passwordSlice";
+import { changePassword, checkIfPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import {
   clearClipboard,
@@ -21,10 +21,12 @@ const PassField = () => {
 
   const password = useAppSelector((state) => state.passwordGenerator.password);
   const config = useAppSelector((state) => state.config);
-  const advanced = useAppSelector(
-    (state) => state.settings.toggle[Settings.AdvancedConfig]
-  );
+  const {
+    [Settings.AdvancedConfig]: advanced,
+    [Settings.HaveIBeenPwned]: usePwned,
+  } = useAppSelector((state) => state.settings.toggle);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const pwnedTimer = useRef<number | undefined>(undefined);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changePassword(event.target.value));
@@ -76,6 +78,21 @@ const PassField = () => {
   };
 
   useEffect(refreshPassword, [config, advanced, dispatch]);
+
+  useEffect(() => {
+    clearTimeout(pwnedTimer.current);
+    pwnedTimer.current = undefined;
+
+    if (!usePwned) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      dispatch(checkIfPwned(password));
+      pwnedTimer.current = undefined;
+    }, 2000);
+    pwnedTimer.current = timeout as unknown as number;
+  }, [password, usePwned, dispatch]);
 
   const passwordInputButtons = (
     <InputAdornment position="end">

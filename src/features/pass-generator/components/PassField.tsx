@@ -78,12 +78,12 @@ const PassField = () => {
       advanced ? getAdvancedCharsets() : config.charsets.basic
     );
     dispatch(changePassword(newPassword));
-    dispatch(clearClipboard());
   };
 
   useEffect(refreshPassword, [config, advanced, dispatch]);
 
   useEffect(() => {
+    dispatch(clearClipboard());
     dispatch(resetPwned());
     clearTimeout(pwnedTimer.current);
     pwnedTimer.current = undefined;

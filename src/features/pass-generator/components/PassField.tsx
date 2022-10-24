@@ -5,6 +5,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  Tooltip,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import useKeyboardShortcut from "use-keyboard-shortcut";
@@ -126,18 +127,29 @@ const PassField = () => {
 
   const passwordInputButtons = (
     <InputAdornment position="end">
-      <IconButton onClick={handleClickShowPassword}>
-        <Icon>{showPassword ? "visibility_off" : "visibility"}</Icon>
-      </IconButton>
-      <IconButton onClick={refreshPassword}>
-        <Icon>cached</Icon>
-      </IconButton>
-      <IconButton
-        onClick={handleCopyToClipboard}
-        disabled={disableCopyToClipboard}
+      <Tooltip
+        title={
+          showPassword ? "Hide password (Alt + V)" : "Show password (Alt + V)"
+        }
+        placement="top"
       >
-        <Icon>content_paste</Icon>
-      </IconButton>
+        <IconButton onClick={handleClickShowPassword}>
+          <Icon>{showPassword ? "visibility_off" : "visibility"}</Icon>
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Regenerate password (Ctrl + R)" placement="top">
+        <IconButton onClick={refreshPassword}>
+          <Icon>cached</Icon>
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Copy password (Ctrl + C)" placement="top">
+        <IconButton
+          onClick={handleCopyToClipboard}
+          disabled={disableCopyToClipboard}
+        >
+          <Icon>content_paste</Icon>
+        </IconButton>
+      </Tooltip>
     </InputAdornment>
   );
 

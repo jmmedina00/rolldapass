@@ -1,5 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import { Box } from "@mui/system";
+import { usePWAInstall } from "react-use-pwa-install";
 import { Settings } from "../constants";
 import SettingToggle, { SettingToggleProperty } from "./SettingToggle";
 
@@ -14,6 +15,8 @@ const settingsLabels: SettingToggleProperty[] = [
 ];
 
 const DrawerContents = () => {
+  const install = usePWAInstall();
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: 1 }}>
       <Stack sx={{ flexGrow: 1 }}>
@@ -25,7 +28,13 @@ const DrawerContents = () => {
           />
         ))}
       </Stack>
-      <Button fullWidth>Install to desktop</Button>
+      <Button
+        sx={{ display: !!install ? "inherit" : "none" }}
+        onClick={install}
+        fullWidth
+      >
+        Install to desktop
+      </Button>
     </Box>
   );
 };

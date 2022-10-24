@@ -7,6 +7,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import useKeyboardShortcut from "use-keyboard-shortcut";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
 import { changePassword, checkIfPwned, resetPwned } from "../passwordSlice";
@@ -98,6 +99,30 @@ const PassField = () => {
     }, 2000);
     pwnedTimer.current = timeout as unknown as number;
   }, [password, usePwned, dispatch]);
+
+  useKeyboardShortcut(
+    ["Control", "C"],
+    () => {
+      if (disableCopyToClipboard) {
+        return;
+      }
+
+      handleCopyToClipboard();
+    },
+    { overrideSystem: true, ignoreInputFields: false, repeatOnHold: false }
+  );
+
+  useKeyboardShortcut(["Control", "R"], refreshPassword, {
+    overrideSystem: true,
+    ignoreInputFields: false,
+    repeatOnHold: false,
+  });
+
+  useKeyboardShortcut(["Alt", "V"], handleClickShowPassword, {
+    overrideSystem: true,
+    ignoreInputFields: false,
+    repeatOnHold: false,
+  });
 
   const passwordInputButtons = (
     <InputAdornment position="end">

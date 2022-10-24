@@ -59,5 +59,10 @@
   },
   "devDependencies": {
     "jest-watch-typeahead": "^0.6.5"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!use-keyboard-shortcut)/"
+    ]
   }
 }

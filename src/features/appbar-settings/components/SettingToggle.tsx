@@ -32,6 +32,7 @@ const SettingToggle = ({
         labelPlacement="start"
         control={toggle}
         label={toggleLabel}
+        sx={{ width: "calc(100% - 16px)" }}
       />
     </FormGroup>
   );

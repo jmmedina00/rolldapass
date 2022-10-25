@@ -12,6 +12,7 @@ import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
 import { clearClipboard } from "../thunks/notifiedClipboard";
 import { checkPassword } from "../services/haveIBeenPwned";
+import { selectNormalizedCharsets } from "../selectNormalizedCharsets";
 
 jest.mock("../thunks/notifiedClipboard");
 jest.mock("../services/generate-password");
@@ -79,7 +80,7 @@ describe("password generator", () => {
     expect(expectedStore.getState()).toEqual(actualStore.getState());
   });
 
-  it("should get a new password when config state changes (basic)", () => {
+  it("should get a new password when config state changes", () => {
     const store = setupStore({
       config: {
         length: 3,
@@ -99,48 +100,10 @@ describe("password generator", () => {
       store.dispatch(changeLength(4));
     });
 
+    const expectedCharsets = selectNormalizedCharsets(store.getState());
+
     expect(generatePassword).toHaveBeenLastCalledWith(4, ["ABCD"]);
   });
-
-  it.each([
-    [
-      {
-        charsets: { basic: ["ABCD"], advanced: ["1234"] },
-        additionalChars: { include: "&2", exclude: "B" },
-      },
-      ["ACD", "1234", "&"],
-    ],
-    [
-      {
-        charsets: { basic: ["ABCD"], advanced: ["1234"] },
-        additionalChars: { include: "", exclude: "" },
-      },
-      ["ABCD", "1234"],
-    ],
-  ])(
-    "should get a new password when config state changes (advanced)",
-    (charsetInfo: Omit<ConfigState, "length">, expectedCharsets: string[]) => {
-      const store = setupStore({
-        config: {
-          ...charsetInfo,
-          length: 3,
-        },
-        settings: {
-          settingsOpen: false,
-          aboutOpen: false,
-          toggle: { [Settings.AdvancedConfig]: true },
-        },
-      });
-
-      renderWithProviders(<PassField />, { store });
-
-      act(() => {
-        store.dispatch(changeLength(4));
-      });
-
-      expect(generatePassword).toHaveBeenLastCalledWith(4, expectedCharsets);
-    }
-  );
 
   it("should change the password in state when config state changes", () => {
     const store = setupStore({

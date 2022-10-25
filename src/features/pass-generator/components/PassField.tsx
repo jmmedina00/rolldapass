@@ -12,6 +12,7 @@ import useKeyboardShortcut from "use-keyboard-shortcut";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
 import { changePassword, checkIfPwned, resetPwned } from "../passwordSlice";
+import { selectNormalizedCharsets } from "../selectNormalizedCharsets";
 import { generatePassword } from "../services/generate-password";
 import {
   clearClipboard,
@@ -22,11 +23,11 @@ const PassField = () => {
   const dispatch = useAppDispatch();
 
   const password = useAppSelector((state) => state.passwordGenerator.password);
-  const config = useAppSelector((state) => state.config);
-  const {
-    [Settings.AdvancedConfig]: advanced,
-    [Settings.HaveIBeenPwned]: usePwned,
-  } = useAppSelector((state) => state.settings.toggle);
+  const charsets = useAppSelector(selectNormalizedCharsets);
+  const length = useAppSelector((state) => state.config.length);
+  const { [Settings.HaveIBeenPwned]: usePwned } = useAppSelector(
+    (state) => state.settings.toggle
+  );
   const disableCopyToClipboard = useAppSelector(
     (state) => usePwned && state.passwordGenerator.pwnedResult !== "good"
   );
@@ -46,43 +47,12 @@ const PassField = () => {
     dispatch(copyPasswordToClipboard());
   };
 
-  const getAdvancedCharsets = () => {
-    const baseCharsets = [
-      ...config.charsets.basic,
-      ...config.charsets.advanced,
-    ];
-    const include = Array.from(
-      new Set(
-        config.additionalChars.include
-          .split("")
-          .filter(
-            (char) =>
-              baseCharsets.findIndex(
-                (charset) => charset.indexOf(char) !== -1
-              ) === -1
-          )
-      )
-    ).join("");
-
-    return [...baseCharsets, include]
-      .map((charset) =>
-        charset
-          .split("")
-          .filter((char) => config.additionalChars.exclude.indexOf(char) === -1)
-          .join("")
-      )
-      .filter((charset) => charset !== "");
-  };
-
   const refreshPassword = () => {
-    const newPassword = generatePassword(
-      config.length,
-      advanced ? getAdvancedCharsets() : config.charsets.basic
-    );
+    const newPassword = generatePassword(length, charsets);
     dispatch(changePassword(newPassword));
   };
 
-  useEffect(refreshPassword, [config, advanced, dispatch]);
+  useEffect(refreshPassword, [length, dispatch]);
 
   useEffect(() => {
     dispatch(clearClipboard());

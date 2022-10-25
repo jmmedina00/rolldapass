@@ -5,10 +5,7 @@ import { ConfigState } from "../pass-config/configSlice";
 
 const selectIsAdvanced = (state: RootState): boolean =>
   state.settings.toggle[Settings.AdvancedConfig];
-const selectConfig = (state: RootState): Omit<ConfigState, "length"> => {
-  const { charsets, additionalChars } = state.config;
-  return { charsets, additionalChars };
-};
+const selectConfig = (state: RootState): ConfigState => state.config;
 
 export const selectNormalizedCharsets = createSelector(
   [selectIsAdvanced, selectConfig],

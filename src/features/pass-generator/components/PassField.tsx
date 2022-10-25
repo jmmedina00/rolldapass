@@ -52,7 +52,7 @@ const PassField = () => {
     dispatch(changePassword(newPassword));
   };
 
-  useEffect(refreshPassword, [length, dispatch]);
+  useEffect(refreshPassword, [length, charsets, dispatch]);
 
   useEffect(() => {
     dispatch(clearClipboard());

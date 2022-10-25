@@ -1,6 +1,7 @@
 import {
   AppBar,
   Drawer,
+  Grid,
   Icon,
   IconButton,
   Menu,
@@ -90,9 +91,15 @@ const AppBarSettings = () => {
         onClose={handleDrawerChange}
         open={drawerOpen}
       >
-        <IconButton onClick={handleDrawerChange}>
-          <Icon>close</Icon>
-        </IconButton>
+        <Grid sx={{ display: "flex" }}>
+          <Grid item sx={{ flexGrow: 1 }}></Grid>
+          <Grid item>
+            <IconButton onClick={handleDrawerChange}>
+              <Icon>chevron_left</Icon>
+            </IconButton>
+          </Grid>
+        </Grid>
+
         <DrawerContents />
       </Drawer>
       <Menu

@@ -18,16 +18,17 @@ const withDrawerStyle = {
 
 const App = () => {
   const settingsOpen = useAppSelector((state) => state.settings.settingsOpen);
-  const containerStyles = settingsOpen
-    ? { ...baseStyle, ...withDrawerStyle }
-    : { ...baseStyle };
 
   return (
     <Stack direction="column" sx={{ display: "flex" }}>
       <AppBarSettings />
 
-      <Container sx={containerStyles}>
-        <Stack direction="column" spacing={3}>
+      <Container sx={baseStyle}>
+        <Stack
+          direction="column"
+          spacing={3}
+          sx={settingsOpen ? withDrawerStyle : {}}
+        >
           <Paper elevation={2}>
             <PassGenerator />
           </Paper>

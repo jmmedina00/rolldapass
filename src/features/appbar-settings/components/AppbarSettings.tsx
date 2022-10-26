@@ -1,6 +1,7 @@
 import {
   AppBar,
   Drawer,
+  DrawerProps,
   Grid,
   Icon,
   IconButton,
@@ -8,6 +9,8 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -15,11 +18,30 @@ import { openAbout, toggleDrawer } from "../settingsSlice";
 import About from "./About";
 import DrawerContents from "./DrawerContents";
 
+const drawerSmallDisplay = { variant: "temporary" as DrawerProps["variant"] };
+
+const drawerLargeDisplay = {
+  variant: "persistent" as DrawerProps["variant"],
+  anchor: "left",
+  sx: {
+    display: { xs: "none", md: "block" },
+    width: 256,
+    flexShrink: 0,
+    "& .MuiDrawer-paper": {
+      width: 256,
+      boxSizing: "border-box",
+    },
+  },
+};
+
 const AppBarSettings = () => {
   const dispatch = useAppDispatch();
   const drawerOpen = useAppSelector((state) => state.settings.settingsOpen);
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
   const menuOpen = !!anchorMenu;
+
+  const theme = useTheme();
+  const isLargeDisplay = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleDrawerChange = () => {
     dispatch(toggleDrawer());
@@ -39,6 +61,26 @@ const AppBarSettings = () => {
     setAnchorMenu(null);
     dispatch(openAbout());
   };
+
+  const settingsMenu = <DrawerContents />;
+
+  const fancyCloseButton = (
+    <Grid sx={{ display: "flex" }}>
+      <Grid item sx={{ flexGrow: 1 }}></Grid>
+      <Grid item>
+        <IconButton onClick={handleDrawerChange}>
+          <Icon>chevron_left</Icon>
+        </IconButton>
+      </Grid>
+    </Grid>
+  );
+
+  const drawerSettings = isLargeDisplay
+    ? drawerLargeDisplay
+    : drawerSmallDisplay;
+  const contents = isLargeDisplay
+    ? [fancyCloseButton, settingsMenu]
+    : settingsMenu;
 
   return (
     <div>
@@ -69,38 +111,11 @@ const AppBarSettings = () => {
         </Toolbar>
       </AppBar>
       <Drawer
-        onClose={handleDrawerChange}
-        open={drawerOpen}
-        variant="temporary"
-        sx={{ display: { xs: "block", md: "none" } }}
-      >
-        <DrawerContents />
-      </Drawer>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        sx={{
-          display: { xs: "none", md: "block" },
-          width: 256,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: 256,
-            boxSizing: "border-box",
-          },
-        }}
+        {...drawerSettings}
         onClose={handleDrawerChange}
         open={drawerOpen}
       >
-        <Grid sx={{ display: "flex" }}>
-          <Grid item sx={{ flexGrow: 1 }}></Grid>
-          <Grid item>
-            <IconButton onClick={handleDrawerChange}>
-              <Icon>chevron_left</Icon>
-            </IconButton>
-          </Grid>
-        </Grid>
-
-        <DrawerContents />
+        {contents}
       </Drawer>
       <Menu
         anchorEl={anchorMenu}

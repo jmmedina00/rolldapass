@@ -3,13 +3,9 @@ import { Box } from "@mui/system";
 import { PromotionSection } from "../constants";
 import PassManagerCard from "./PassManagerCard";
 
-const PassManagerSection = ({
-  section: { label, items },
-}: {
-  section: PromotionSection;
-}) => {
+const PassManagerSection = ({ label, items }: PromotionSection) => {
   const passManagerCards = items.map((info) => (
-    <PassManagerCard key={info.name} info={info} />
+    <PassManagerCard key={info.name} {...info} />
   ));
 
   return (

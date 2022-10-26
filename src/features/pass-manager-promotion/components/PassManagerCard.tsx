@@ -9,10 +9,11 @@ import {
 import { PassManagerInfo } from "../constants";
 
 const PassManagerCard = ({
-  info: { name, description, image, url },
-}: {
-  info: PassManagerInfo;
-}) => (
+  name,
+  description,
+  image,
+  url,
+}: PassManagerInfo) => (
   <Grid item xs={3}>
     <Card>
       <CardMedia component="img" image={image} height="auto" />

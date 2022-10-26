@@ -10,19 +10,19 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
-import { openAbout } from "../settingsSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { openAbout, toggleDrawer } from "../settingsSlice";
 import About from "./About";
 import DrawerContents from "./DrawerContents";
 
 const AppBarSettings = () => {
   const dispatch = useAppDispatch();
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const drawerOpen = useAppSelector((state) => state.settings.settingsOpen);
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
   const menuOpen = !!anchorMenu;
 
   const handleDrawerChange = () => {
-    setDrawerOpen(!drawerOpen);
+    dispatch(toggleDrawer());
   };
 
   const handleMenuButtonClick = (
@@ -45,7 +45,7 @@ const AppBarSettings = () => {
       <AppBar
         position="static"
         sx={{
-          width: { md: drawerOpen ? `calc(100 - 256px)` : "100%", xs: "100%" },
+          width: { md: drawerOpen ? `calc(100% - 256px)` : "100%", xs: "100%" },
           ml: { md: drawerOpen ? "256px" : "inherit", xs: "inherit" },
         }}
       >

@@ -1,11 +1,9 @@
 import { Chip, Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CharsetDefinitionProperty } from "../constants";
+import CharsetDefinition from "../constants";
 import { toggleCharset } from "../configSlice";
 
-const CharsetChip = ({
-  charsetDef: { label, charset, category },
-}: CharsetDefinitionProperty) => {
+const CharsetChip = ({ label, charset, category }: CharsetDefinition) => {
   const dispatch = useAppDispatch();
 
   const enabled = useAppSelector((state) => {

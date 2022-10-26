@@ -10,7 +10,7 @@ import { useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
 
 const generateChips = (charsetDef: CharsetDefinition) => (
-  <CharsetChip key={charsetDef.charset} charsetDef={charsetDef} />
+  <CharsetChip key={charsetDef.charset} {...charsetDef} />
 );
 
 const PassConfig = () => {

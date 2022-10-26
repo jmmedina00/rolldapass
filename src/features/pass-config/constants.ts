@@ -6,10 +6,6 @@ export default interface CharsetDefinition {
   category: CharsetCategory;
 }
 
-export interface CharsetDefinitionProperty {
-  charsetDef: CharsetDefinition;
-}
-
 export const LETTERS_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const LETTERS_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
 export const DIGITS = "0123456789";

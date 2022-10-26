@@ -15,7 +15,7 @@ describe("charset chip component", () => {
     const charset = "abc";
     const label = "Chip test";
     const category = "basic";
-    const chip = <CharsetChip charsetDef={{ label, charset, category }} />;
+    const chip = <CharsetChip {...{ label, charset, category }} />;
 
     const expectedStore = setupStore({ config: baseConfig });
     expectedStore.dispatch(toggleCharset({ charset, category }));

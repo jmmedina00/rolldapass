@@ -169,7 +169,8 @@ describe("password generator", () => {
     expect(store.getState().passwordGenerator.password).toEqual("thisisGood");
   });
 
-  it("should send password to HIBP after timer", () => {
+  it("should send password to HIBP after timer", async () => {
+    console.error = jest.fn(); // Silence inevitable warning in this test
     const store = setupStore({
       passwordGenerator: {
         password: "abcd",
@@ -189,7 +190,7 @@ describe("password generator", () => {
       store.dispatch(changePassword("qwerty"));
     });
 
-    jest.runAllTimers();
+    jest.runAllTimers(); // testing-library doesn't like being updated by fake timers
 
     expect((checkPassword as jest.Mock).mock.lastCall[0]).toEqual("qwerty");
   });

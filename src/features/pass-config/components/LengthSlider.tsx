@@ -14,13 +14,7 @@ const LengthSlider = () => {
   };
   return (
     <Stack spacing={3} direction="row" alignItems="center">
-      <Slider
-        value={length}
-        onChange={handleLengthChange}
-        valueLabelDisplay="auto"
-        min={2}
-        max={128}
-      />
+      <Slider value={length} onChange={handleLengthChange} min={2} max={128} />
       <Typography variant="subtitle2">{length}</Typography>
     </Stack>
   );

@@ -21,7 +21,7 @@ const CharFieldSet = () => {
 
   return (
     <Grid container spacing={3} sx={{ mt: 1 }}>
-      <Grid item xs={6}>
+      <Grid item sm={6} xs={12}>
         <TextField
           label="Include characters"
           fullWidth
@@ -30,7 +30,7 @@ const CharFieldSet = () => {
           onChange={changeValue("include")}
         ></TextField>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item sm={6} xs={12}>
         <TextField
           label="Exclude characters"
           fullWidth

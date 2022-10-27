@@ -49,7 +49,9 @@ const PassField = () => {
 
   const refreshPassword = () => {
     const newPassword = generatePassword(length, charsets);
-    dispatch(changePassword(newPassword));
+    if (newPassword) {
+      dispatch(changePassword(newPassword));
+    }
   };
 
   useEffect(refreshPassword, [length, charsets, dispatch]);
@@ -108,17 +110,21 @@ const PassField = () => {
         </IconButton>
       </Tooltip>
       <Tooltip title="Regenerate password (Ctrl + R)" placement="top">
-        <IconButton onClick={refreshPassword}>
-          <Icon>cached</Icon>
-        </IconButton>
+        <span>
+          <IconButton onClick={refreshPassword}>
+            <Icon>cached</Icon>
+          </IconButton>
+        </span>
       </Tooltip>
       <Tooltip title="Copy password (Ctrl + C)" placement="top">
-        <IconButton
-          onClick={handleCopyToClipboard}
-          disabled={disableCopyToClipboard}
-        >
-          <Icon>content_paste</Icon>
-        </IconButton>
+        <span>
+          <IconButton
+            onClick={handleCopyToClipboard}
+            disabled={disableCopyToClipboard}
+          >
+            <Icon>content_paste</Icon>
+          </IconButton>
+        </span>
       </Tooltip>
     </InputAdornment>
   );

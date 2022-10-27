@@ -2,7 +2,7 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { changeLength, ConfigState } from "../../pass-config/configSlice";
+import { changeLength } from "../../pass-config/configSlice";
 import { changePassword, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
@@ -30,7 +30,6 @@ const unrelatedSlice = createSlice({
 
 describe("password generator", () => {
   const presetPassword = "abcd";
-  const inputLabel = "Generate your password";
 
   beforeAll(() => {
     jest.useFakeTimers();
@@ -102,10 +101,12 @@ describe("password generator", () => {
 
     const expectedCharsets = selectNormalizedCharsets(store.getState());
 
-    expect(generatePassword).toHaveBeenLastCalledWith(4, ["ABCD"]);
+    expect(generatePassword).toHaveBeenLastCalledWith(4, expectedCharsets);
   });
 
   it("should change the password in state when config state changes", () => {
+    (generatePassword as jest.Mock).mockReturnValue("test");
+
     const store = setupStore({
       config: {
         length: 3,

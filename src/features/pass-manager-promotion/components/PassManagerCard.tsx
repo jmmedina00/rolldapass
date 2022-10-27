@@ -19,11 +19,20 @@ const PassManagerCard = ({
 
   return (
     <Grid item lg={3} md={isSettingsOpen ? 6 : 3} xs={6}>
-      <Card>
+      <Card sx={{ height: 1, display: "flex", flexDirection: "column" }}>
         <CardMedia component="img" image={image} height="auto" />
-        <CardContent sx={{ paddingBottom: 0 }}>
+        <CardContent
+          sx={{
+            paddingBottom: 0,
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Typography variant="h6">{name}</Typography>
-          <Typography variant="body2">{description}</Typography>
+          <Typography variant="body2" sx={{ flexGrow: 1 }}>
+            {description}
+          </Typography>
           <Button href={url} fullWidth>
             Go to website
           </Button>

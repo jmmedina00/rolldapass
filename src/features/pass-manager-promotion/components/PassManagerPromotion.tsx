@@ -22,9 +22,11 @@ const PassManagerPromotion = () => {
   return organizeToSections ? (
     <Box>{sections}</Box>
   ) : (
-    <Grid container spacing={3}>
-      {flatCards}
-    </Grid>
+    <Box>
+      <Grid container spacing={3}>
+        {flatCards}
+      </Grid>
+    </Box>
   );
 };
 

@@ -24,7 +24,12 @@ const PassConfig = () => {
       <LengthSlider />
 
       <Typography variant="h6">Character sets</Typography>
-      <Grid container spacing={2}>
+      <Grid
+        container
+        columnSpacing={{ md: 2, xs: 1 }}
+        rowSpacing={1}
+        sx={{ marginTop: 0, marginBottom: 2 }}
+      >
         {advancedConfig
           ? charsetsAdvanced.map(generateChips)
           : charsetsBasic.map(generateChips)}

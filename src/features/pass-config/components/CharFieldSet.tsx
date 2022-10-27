@@ -20,7 +20,12 @@ const CharFieldSet = () => {
     };
 
   return (
-    <Grid container spacing={3} sx={{ mt: 1 }}>
+    <Grid
+      container
+      columnSpacing={{ sm: 3, xs: 0 }}
+      rowSpacing={{ xs: 2, sm: 0 }}
+      sx={{ mt: 1 }}
+    >
       <Grid item sm={6} xs={12}>
         <TextField
           label="Include characters"

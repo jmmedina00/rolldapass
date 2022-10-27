@@ -9,8 +9,10 @@ const PassManagerSection = ({ label, items }: PromotionSection) => {
   ));
 
   return (
-    <Box>
-      <Typography variant="h6">{label}</Typography>
+    <Box sx={{ marginBottom: 2 }}>
+      <Typography variant="h6" sx={{ marginBottom: 2 }}>
+        {label}
+      </Typography>
       <Grid container spacing={3}>
         {passManagerCards}
       </Grid>

@@ -62,10 +62,10 @@ const AppBarSettings = () => {
     dispatch(openAbout());
   };
 
-  const settingsMenu = <DrawerContents />;
+  const settingsMenu = <DrawerContents key="foo" />;
 
   const fancyCloseButton = (
-    <Grid sx={{ display: "flex" }}>
+    <Grid sx={{ display: "flex" }} key="bar">
       <Grid item sx={{ flexGrow: 1 }}></Grid>
       <Grid item>
         <IconButton onClick={handleDrawerChange}>

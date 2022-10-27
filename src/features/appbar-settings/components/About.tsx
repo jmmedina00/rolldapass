@@ -27,7 +27,7 @@ interface TabPanelProps {
 }
 
 const TabPanel = ({ children, index, value }: TabPanelProps) => (
-  <Box sx={{ display: index === value ? "inherit" : "none" }}>
+  <Box sx={{ display: index === value ? "inherit" : "none", marginTop: 1 }}>
     <DialogContentText>{children}</DialogContentText>
   </Box>
 );
@@ -46,7 +46,7 @@ const About = () => {
   };
 
   return (
-    <Dialog open={aboutOpen} onClose={handleCloseAbout}>
+    <Dialog open={aboutOpen} onClose={handleCloseAbout} fullWidth>
       <DialogTitle sx={{ display: "flex" }}>
         <Box sx={{ flexGrow: 1, lineHeight: 1.9 }}>About</Box>
         <IconButton onClick={handleCloseAbout}>
@@ -54,16 +54,16 @@ const About = () => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <Grid container>
-          <Grid item xs={3}>
+        <Grid container spacing={2}>
+          <Grid item sx={{ textAlign: "center", verticalAlign: "middle" }}>
             <Box
               component="img"
               src="logo192.png"
               sx={{ height: 100, width: 100 }}
             />
           </Grid>
-          <Grid item xs={9}>
-            <Typography variant="h3">Rolldapass</Typography>
+          <Grid item sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h5">Rolldapass</Typography>
           </Grid>
         </Grid>
         <Tabs value={tabValue} onChange={handleChangeTab}>
@@ -76,19 +76,19 @@ const About = () => {
           and distributed under the terms of the MIT License
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Typography variant="h5">zxcvbn</Typography>
-          <Typography variant="h6">by Dropbox</Typography>
+          <Typography variant="h6">zxcvbn</Typography>
+          <Typography variant="overline">by Dropbox</Typography>
           {}
-          <Typography variant="h5">KeePass</Typography>
-          <Typography variant="h6">
+          <Typography variant="h6">KeePass</Typography>
+          <Typography variant="overline">
             implemented with Password-Quality-Calculator by EYHN
           </Typography>
           {}
-          <Typography variant="h5">Password Meter / UIC</Typography>
-          <Typography variant="h6">implemented by Hamed Fathi</Typography>
+          <Typography variant="h6">Password Meter / UIC</Typography>
+          <Typography variant="overline">implemented by Hamed Fathi</Typography>
           {}
-          <Typography variant="h5">TAI Shannon</Typography>
-          <Typography variant="h6">
+          <Typography variant="h6">TAI Shannon</Typography>
+          <Typography variant="overline">
             included in tai-password-strength by tests-always-included
           </Typography>
         </TabPanel>

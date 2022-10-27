@@ -85,7 +85,6 @@ describe("notification display", () => {
       store: actualStore,
     });
     const button = getByRole("button");
-    console.log(button);
 
     act(() => {
       button.click();

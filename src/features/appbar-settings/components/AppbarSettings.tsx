@@ -97,6 +97,7 @@ const AppBarSettings = () => {
               mr: 3,
               p: 0,
               display: { md: !drawerOpen ? "inherit" : "none" },
+              color: "white",
             }}
             onClick={handleDrawerChange}
           >
@@ -105,7 +106,7 @@ const AppBarSettings = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Rolldapass
           </Typography>
-          <IconButton onClick={handleMenuButtonClick}>
+          <IconButton onClick={handleMenuButtonClick} sx={{ color: "white" }}>
             <Icon>more_vert</Icon>
           </IconButton>
         </Toolbar>

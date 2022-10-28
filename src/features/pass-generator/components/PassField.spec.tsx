@@ -1,13 +1,9 @@
-import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
 import { changeLength, toggleCharset } from "../../pass-config/configSlice";
 import { changePassword, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
-import passwordReducer from "../passwordSlice";
-import configReducer from "../../pass-config/configSlice";
-import settingsReducer from "../../appbar-settings/settingsSlice";
 import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
 import { clearClipboard } from "../thunks/notifiedClipboard";
@@ -17,16 +13,6 @@ import { selectNormalizedCharsets } from "../selectNormalizedCharsets";
 jest.mock("../thunks/notifiedClipboard");
 jest.mock("../services/generate-password");
 jest.mock("../services/haveIBeenPwned"); // called by password slice thunk
-
-/* const unrelatedSlice = createSlice({
-  name: "unrelated",
-  initialState: { counter: 1 },
-  reducers: {
-    increaseCounter: (state) => {
-      state.counter += 1;
-    },
-  },
-}); */
 
 describe("password generator", () => {
   const presetPassword = "abcd";

@@ -48,6 +48,10 @@ const PassField = () => {
   };
 
   const refreshPassword = () => {
+    if (charsets.length === 0) {
+      return;
+    }
+
     const newPassword = generatePassword(length, charsets);
     if (newPassword) {
       dispatch(changePassword(newPassword));
@@ -62,7 +66,7 @@ const PassField = () => {
     clearTimeout(pwnedTimer.current);
     pwnedTimer.current = undefined;
 
-    if (!usePwned) {
+    if (!usePwned || !password) {
       return;
     }
 
@@ -111,7 +115,10 @@ const PassField = () => {
       </Tooltip>
       <Tooltip title="Regenerate password (Ctrl + R)" placement="top">
         <span>
-          <IconButton onClick={refreshPassword}>
+          <IconButton
+            onClick={refreshPassword}
+            disabled={charsets.length === 0}
+          >
             <Icon>cached</Icon>
           </IconButton>
         </span>

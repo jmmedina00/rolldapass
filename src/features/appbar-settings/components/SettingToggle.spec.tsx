@@ -8,41 +8,26 @@ import SettingToggle from "./SettingToggle";
 export const test = 2;
 
 describe("setting toggle", () => {
-  it("should reflect the store's state", () => {
-    const { getByRole } = renderWithProviders(
-      <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
-      {
-        preloadedState: {
-          settings: {
-            settingsOpen: false,
-            aboutOpen: false,
-            toggle: { test: true },
+  it.each([true, false])(
+    "should reflect the store's state",
+    (toggleEnabled) => {
+      const { getByRole } = renderWithProviders(
+        <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
+        {
+          preloadedState: {
+            settings: {
+              settingsOpen: false,
+              aboutOpen: false,
+              toggle: { test: toggleEnabled },
+            },
           },
-        },
-      }
-    );
+        }
+      );
 
-    const toggle = getByRole("checkbox") as HTMLInputElement;
-    expect(toggle.checked).toBeTruthy();
-  });
-
-  it("should reflect the store's state 2", () => {
-    const { getByRole } = renderWithProviders(
-      <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
-      {
-        preloadedState: {
-          settings: {
-            settingsOpen: false,
-            aboutOpen: false,
-            toggle: { test: false },
-          },
-        },
-      }
-    );
-
-    const toggle = getByRole("checkbox") as HTMLInputElement;
-    expect(toggle.checked).toBeFalsy();
-  });
+      const toggle = getByRole("checkbox") as HTMLInputElement;
+      expect(toggle.checked).toEqual(toggleEnabled);
+    }
+  );
 
   it("should dispatch toggle action when toggled", () => {
     const expectedStore = setupStore({
@@ -101,7 +86,7 @@ describe("setting toggle", () => {
       {
         store: actualStore,
       }
-    ); // Warning is triggered due to undefined status
+    );
 
     expect(expectedStore.getState()).toEqual(actualStore.getState());
   });

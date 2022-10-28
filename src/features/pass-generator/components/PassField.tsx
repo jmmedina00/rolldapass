@@ -138,8 +138,9 @@ const PassField = () => {
 
   return (
     <FormControl variant="filled" fullWidth>
-      <InputLabel>Generate your password</InputLabel>
+      <InputLabel htmlFor="password">Generate your password</InputLabel>
       <FilledInput
+        id="password"
         endAdornment={passwordInputButtons}
         type={showPassword ? "text" : "password"}
         value={password}

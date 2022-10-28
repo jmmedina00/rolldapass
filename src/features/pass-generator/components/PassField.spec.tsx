@@ -16,6 +16,7 @@ jest.mock("../services/haveIBeenPwned"); // called by password slice thunk
 
 describe("password generator", () => {
   const presetPassword = "abcd";
+  const passLabel = "Generate your password";
 
   beforeAll(() => {
     jest.useFakeTimers();
@@ -35,7 +36,7 @@ describe("password generator", () => {
   });
 
   it("should reflect the password in store", () => {
-    const { getByDisplayValue } = renderWithProviders(<PassField />, {
+    const { getByLabelText } = renderWithProviders(<PassField />, {
       preloadedState: {
         passwordGenerator: {
           password: presetPassword,
@@ -45,7 +46,9 @@ describe("password generator", () => {
       },
     });
 
-    expect(getByDisplayValue(presetPassword)).toBeInTheDocument();
+    expect((getByLabelText(passLabel) as HTMLInputElement).value).toEqual(
+      presetPassword
+    );
   });
 
   describe("password changes", () => {
@@ -55,10 +58,10 @@ describe("password generator", () => {
       expectedStore.dispatch(changePassword(newPassword));
 
       const actualStore = setupStore();
-      const { getByDisplayValue } = renderWithProviders(<PassField />, {
+      const { getByLabelText } = renderWithProviders(<PassField />, {
         store: actualStore,
       });
-      const input = getByDisplayValue("");
+      const input = getByLabelText(passLabel);
 
       act(() => {
         fireEvent.change(input, { target: { value: newPassword } });

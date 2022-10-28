@@ -25,7 +25,60 @@ describe("settings reducer", () => {
     });
   });
 
-  it("should toggle settings drawer", () => {
+  describe("drawer handling", () => {
+    it.each([true, false])("should handle toggling", (settingsOpen) => {
+      expect(
+        settingsReducer({ ...initialState, settingsOpen }, toggleDrawer())
+      ).toEqual({ ...initialState, settingsOpen: !settingsOpen });
+    });
+  });
+
+  describe("about handling", () => {
+    it("should open the about", () => {
+      expect(settingsReducer(initialState, openAbout()).aboutOpen).toBeTruthy();
+    });
+
+    it("should close the about", () => {
+      expect(
+        settingsReducer({ ...initialState, aboutOpen: true }, closeAbout())
+          .aboutOpen
+      ).toBeFalsy();
+    });
+  });
+
+  describe("setting handling", () => {
+    it("should set a setting that is true to false", () => {
+      expect(
+        settingsReducer(initialState, toggleSetting("done")).toggle["done"]
+      ).toBeFalsy();
+    });
+
+    it("should set a setting that is false to true", () => {
+      expect(
+        settingsReducer(initialState, toggleSetting("pending")).toggle[
+          "pending"
+        ]
+      ).toBeTruthy();
+    });
+
+    it("should set a new setting to true by default", () => {
+      expect(
+        settingsReducer(initialState, toggleSetting("unknown")).toggle[
+          "unknown"
+        ]
+      ).toBeTruthy();
+    });
+
+    it("should initialize a setting as false", () => {
+      expect(
+        settingsReducer(initialState, initializeSetting("unknown")).toggle[
+          "unknown"
+        ]
+      ).toBeFalsy();
+    });
+  });
+
+  /* it("should  settings drawer", () => {
     expect(
       settingsReducer(initialState, toggleDrawer()).settingsOpen
     ).toBeTruthy();
@@ -36,42 +89,5 @@ describe("settings reducer", () => {
       settingsReducer({ ...initialState, settingsOpen: true }, toggleDrawer())
         .settingsOpen
     ).toBeFalsy();
-  });
-
-  it("should set a setting that is true to false", () => {
-    expect(
-      settingsReducer(initialState, toggleSetting("done")).toggle["done"]
-    ).toBeFalsy();
-  });
-
-  it("should set a setting that is false to true", () => {
-    expect(
-      settingsReducer(initialState, toggleSetting("pending")).toggle["pending"]
-    ).toBeTruthy();
-  });
-
-  it("should set a new setting to true by default", () => {
-    expect(
-      settingsReducer(initialState, toggleSetting("unknown")).toggle["unknown"]
-    ).toBeTruthy();
-  });
-
-  it("should initialize a setting as false", () => {
-    expect(
-      settingsReducer(initialState, initializeSetting("unknown")).toggle[
-        "unknown"
-      ]
-    ).toBeFalsy();
-  });
-
-  it("should open the about", () => {
-    expect(settingsReducer(initialState, openAbout()).aboutOpen).toBeTruthy();
-  });
-
-  it("should open the about", () => {
-    expect(
-      settingsReducer({ ...initialState, aboutOpen: true }, closeAbout())
-        .aboutOpen
-    ).toBeFalsy();
-  });
+  });   */
 });

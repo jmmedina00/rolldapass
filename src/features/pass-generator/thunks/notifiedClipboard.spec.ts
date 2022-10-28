@@ -15,166 +15,170 @@ Object.assign(navigator, {
 describe("notified clipboard thunks", () => {
   jest.spyOn(navigator.clipboard, "writeText");
 
-  it("should close notification when clearing the clipboard", async () => {
-    const expectedStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
+  describe("when copying to clipboard", () => {
+    it("should call the clipboard API", async () => {
+      const store = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+      await copyPasswordToClipboard()(store.dispatch, store.getState, null);
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith("old");
     });
 
-    expectedStore.dispatch(closeNotification());
+    it("should setup notification", async () => {
+      const expectedStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: false,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
 
-    const actualStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
+      expectedStore.dispatch(
+        setupNotification({
+          type: NotificationType.normal,
+          severity: "success",
+          message: "Password copied to clipboard",
+        })
+      );
+
+      const actualStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: false,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+      await copyPasswordToClipboard()(
+        actualStore.dispatch,
+        actualStore.getState,
+        null
+      );
+
+      expect(expectedStore.getState()).toEqual(actualStore.getState());
     });
-    await clearClipboard()(actualStore.dispatch, actualStore.getState, null);
-
-    expect(expectedStore.getState()).toEqual(actualStore.getState());
   });
 
-  it("should call the clipboard API when clearing the clipboard", async () => {
-    const store = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
-    });
-    await clearClipboard()(store.dispatch, store.getState, null);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("");
-  });
-
-  it("should set up error notification when clearing the clipboard fails", async () => {
-    (
-      navigator.clipboard.writeText as unknown as jest.SpiedFunction<
-        typeof navigator.clipboard.writeText
-      >
-    ).mockRejectedValue("rejected");
-
-    const expectedStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
+  describe("when clearing clipboard", () => {
+    it("should call the clipboard API", async () => {
+      const store = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+      await clearClipboard()(store.dispatch, store.getState, null);
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith("");
     });
 
-    expectedStore.dispatch(
-      setupNotification({
-        type: NotificationType.clipboard,
-        severity: "error",
-        message: "Failed to clear clipboard",
-      })
-    );
+    it("should close notification", async () => {
+      const expectedStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
 
-    const actualStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
-    });
-    await clearClipboard()(actualStore.dispatch, actualStore.getState, null);
+      expectedStore.dispatch(closeNotification());
 
-    expect(expectedStore.getState()).toEqual(actualStore.getState());
-  });
+      const actualStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+      await clearClipboard()(actualStore.dispatch, actualStore.getState, null);
 
-  it("should setup notification when copying password to clipboard", async () => {
-    const expectedStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: false,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
+      expect(expectedStore.getState()).toEqual(actualStore.getState());
     });
 
-    expectedStore.dispatch(
-      setupNotification({
-        type: NotificationType.normal,
-        severity: "success",
-        message: "Password copied to clipboard",
-      })
-    );
+    it("should set up error notification upon failure", async () => {
+      (
+        navigator.clipboard.writeText as unknown as jest.SpiedFunction<
+          typeof navigator.clipboard.writeText
+        >
+      ).mockRejectedValue("rejected");
 
-    const actualStore = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: false,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
+      const expectedStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+
+      expectedStore.dispatch(
+        setupNotification({
+          type: NotificationType.clipboard,
+          severity: "error",
+          message: "Failed to clear clipboard",
+        })
+      );
+
+      const actualStore = setupStore({
+        passwordGenerator: {
+          password: "old",
+          copiedTimeout: 12,
+          pwnedResult: "none",
+        },
+        notification: {
+          open: true,
+          message: "Test",
+          severity: "info",
+          type: NotificationType.normal,
+        },
+      });
+      await clearClipboard()(actualStore.dispatch, actualStore.getState, null);
+
+      expect(expectedStore.getState()).toEqual(actualStore.getState());
     });
-    await copyPasswordToClipboard()(
-      actualStore.dispatch,
-      actualStore.getState,
-      null
-    );
-
-    expect(expectedStore.getState()).toEqual(actualStore.getState());
-  });
-
-  it("should call the clipboard API when copying password", async () => {
-    const store = setupStore({
-      passwordGenerator: {
-        password: "old",
-        copiedTimeout: 12,
-        pwnedResult: "none",
-      },
-      notification: {
-        open: true,
-        message: "Test",
-        severity: "info",
-        type: NotificationType.normal,
-      },
-    });
-    await copyPasswordToClipboard()(store.dispatch, store.getState, null);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("old");
   });
 });

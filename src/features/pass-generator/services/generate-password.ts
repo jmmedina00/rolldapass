@@ -2,6 +2,10 @@ export const generatePassword = (
   length: number,
   charsets: string[]
 ): string => {
+  if (charsets.length === 0 || length < 2) {
+    return "";
+  }
+
   let password = "";
 
   const charsCombined = charsets.reduce(

@@ -21,4 +21,14 @@ describe("password generation", () => {
 
     expect(indexes).not.toContain(-1);
   });
+
+  it("should not generate a password with invalid length", () => {
+    const password = generatePassword(-1, ["abcd"]);
+    expect(password).toEqual("");
+  });
+
+  it("should not generate a password with no charsets", () => {
+    const password = generatePassword(8, []);
+    expect(password).toEqual("");
+  });
 });

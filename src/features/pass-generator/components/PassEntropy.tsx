@@ -60,7 +60,7 @@ const PassEntropy = () => {
       return;
     }
     dispatch(setupNotification(notifications[color]));
-  }, [color]);
+  }, [color, dispatch]);
 
   return (
     <Box>

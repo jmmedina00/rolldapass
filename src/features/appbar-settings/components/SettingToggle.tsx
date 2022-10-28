@@ -24,7 +24,7 @@ const SettingToggle = ({
     dispatch(toggleSetting(toggleProperty));
   };
 
-  const toggle = <Switch checked={enabled} onChange={handleChange} />;
+  const toggle = <Switch checked={enabled || false} onChange={handleChange} />;
 
   return (
     <FormGroup>

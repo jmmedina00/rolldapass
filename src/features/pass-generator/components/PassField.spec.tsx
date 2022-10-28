@@ -2,7 +2,7 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { act, fireEvent } from "@testing-library/react";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
-import { changeLength } from "../../pass-config/configSlice";
+import { changeLength, toggleCharset } from "../../pass-config/configSlice";
 import { changePassword, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import passwordReducer from "../passwordSlice";
@@ -166,6 +166,29 @@ describe("password generator", () => {
       const expectedCharsets = selectNormalizedCharsets(store.getState());
 
       expect(generatePassword).toHaveBeenLastCalledWith(4, expectedCharsets);
+    });
+
+    it("should not call service with empty charset list", () => {
+      const store = setupStore({
+        config: {
+          length: 3,
+          charsets: { basic: ["ABCD"], advanced: ["1234"] },
+          additionalChars: { include: "&", exclude: "B" },
+        },
+        settings: {
+          settingsOpen: false,
+          aboutOpen: false,
+          toggle: { [Settings.AdvancedConfig]: false },
+        },
+      });
+
+      renderWithProviders(<PassField />, { store });
+
+      act(() => {
+        store.dispatch(toggleCharset({ category: "basic", charset: "ABCD" }));
+      });
+
+      expect(generatePassword).not.toHaveBeenCalledWith(3, []);
     });
 
     it("should dispatch change password action", () => {

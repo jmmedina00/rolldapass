@@ -6,7 +6,10 @@ import { changePassword, resetPwned } from "../passwordSlice";
 import { generatePassword } from "../services/generate-password";
 import PassField from "./PassField";
 import { Settings } from "../../appbar-settings/constants";
-import { clearClipboard } from "../thunks/notifiedClipboard";
+import {
+  clearClipboard,
+  copyPasswordToClipboard,
+} from "../thunks/notifiedClipboard";
 import { checkPassword } from "../services/haveIBeenPwned";
 import { selectNormalizedCharsets } from "../selectNormalizedCharsets";
 
@@ -24,6 +27,7 @@ describe("password generator", () => {
 
   beforeEach(() => {
     (clearClipboard as jest.Mock).mockReturnValue(() => ({}));
+    (copyPasswordToClipboard as jest.Mock).mockReturnValue(() => ({}));
   });
 
   afterEach(() => {
@@ -202,6 +206,135 @@ describe("password generator", () => {
       });
 
       expect(store.getState().passwordGenerator.password).not.toEqual("old");
+    });
+  });
+
+  describe("buttons", () => {
+    it("visibility should toggle pass input type", () => {
+      const visibilityButtonIcon = "visibility";
+
+      const { getByText, getByLabelText } = renderWithProviders(<PassField />, {
+        preloadedState: {
+          passwordGenerator: {
+            password: presetPassword,
+            copiedTimeout: undefined,
+            pwnedResult: "none",
+          },
+        },
+      });
+
+      const input = getByLabelText(passLabel) as HTMLInputElement;
+      const button = getByText(visibilityButtonIcon);
+
+      expect(input.type).toEqual("password");
+
+      act(() => {
+        button.click();
+      });
+
+      expect(input.type).toEqual("text");
+
+      act(() => {
+        button.click();
+      });
+
+      expect(input.type).toEqual("password");
+    });
+
+    describe("regenerate", () => {
+      const regenerateButtonIcon = "cached";
+
+      it("should trigger changing the password with current params", () => {
+        const store = setupStore({
+          config: {
+            length: 3,
+            charsets: { basic: ["ABCD"], advanced: ["1234"] },
+            additionalChars: { include: "&", exclude: "B" },
+          },
+          settings: {
+            settingsOpen: false,
+            aboutOpen: false,
+            toggle: { [Settings.AdvancedConfig]: false },
+          },
+        });
+        const expectedCharsets = selectNormalizedCharsets(store.getState());
+
+        const { getByText } = renderWithProviders(<PassField />, { store });
+        const button = getByText(regenerateButtonIcon);
+
+        act(() => {
+          button.click();
+        });
+
+        expect(generatePassword).toHaveBeenLastCalledWith(3, expectedCharsets);
+      });
+
+      it("should be disabled when there are no charsets", () => {
+        const store = setupStore({
+          config: {
+            length: 3,
+            charsets: { basic: [], advanced: ["1234"] },
+            additionalChars: { include: "&", exclude: "B" },
+          },
+          settings: {
+            settingsOpen: false,
+            aboutOpen: false,
+            toggle: { [Settings.AdvancedConfig]: false },
+          },
+        });
+
+        const { getByText } = renderWithProviders(<PassField />, { store });
+        const button = getByText(regenerateButtonIcon)
+          .parentElement as HTMLButtonElement;
+
+        expect(Array.from(button.classList.values())).toContain("Mui-disabled");
+      });
+    });
+
+    describe("clipboard", () => {
+      const clipboardButtonIcon = "content_paste";
+
+      it("should trigger copying password to clipboard", () => {
+        const { getByText } = renderWithProviders(<PassField />, {
+          preloadedState: {
+            passwordGenerator: {
+              password: presetPassword,
+              copiedTimeout: undefined,
+              pwnedResult: "none",
+            },
+          },
+        });
+
+        const button = getByText(clipboardButtonIcon);
+
+        act(() => {
+          button.click();
+        });
+
+        expect(copyPasswordToClipboard).toHaveBeenCalled();
+      });
+
+      it("should be disabled if pwned is active with no good result", () => {
+        const { getByText } = renderWithProviders(<PassField />, {
+          preloadedState: {
+            passwordGenerator: {
+              password: "abcd",
+              copiedTimeout: undefined,
+              pwnedResult: "none",
+            },
+            settings: {
+              settingsOpen: false,
+              aboutOpen: false,
+              toggle: { [Settings.HaveIBeenPwned]: true },
+            },
+          },
+        });
+
+        const button = getByText(clipboardButtonIcon)
+          .parentElement as HTMLButtonElement;
+
+        expect(Array.from(button.classList.values())).toContain("Mui-disabled");
+      });
     });
   });
 

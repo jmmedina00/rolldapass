@@ -4,7 +4,7 @@ import EntropySelect from "./EntropySelector";
 import PassGenerator from "./PassGenerator";
 
 jest.mock("./PassField");
-jest.mock("./PassEntropy");
+jest.mock("./PassInfo");
 jest.mock("./EntropySelector");
 
 describe("pass generator", () => {

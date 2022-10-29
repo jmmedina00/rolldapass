@@ -34,7 +34,7 @@ const notifications: { [key: string]: Notification } = {
   },
 };
 
-const PassEntropy = () => {
+const PassInfo = () => {
   const dispatch = useAppDispatch();
   const password = useAppSelector((state) => state.passwordGenerator.password);
   const entropy = useAppSelector((state) => state.passwordHealth.entropy);
@@ -78,4 +78,4 @@ const PassEntropy = () => {
   );
 };
 
-export default PassEntropy;
+export default PassInfo;

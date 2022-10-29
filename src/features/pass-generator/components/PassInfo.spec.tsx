@@ -1,5 +1,5 @@
 import { renderWithProviders } from "../../../utils/test-utils";
-import PassEntropy from "./PassEntropy";
+import PassInfo from "./PassInfo";
 import entropy from "../services/entropy";
 import { setupStore } from "../../../app/store";
 import { changePassword } from "../passwordSlice";
@@ -12,13 +12,13 @@ import {
 } from "../../notification/notificationSlice";
 import { waitFor } from "@testing-library/react";
 
-describe("pass entropy display", () => {
+describe("pass complementary display", () => {
   const password = "1234qwer";
   const defaultEntropy = "zxcvbn";
 
   describe("entropy handling", () => {
     it("should take parameters from store", async () => {
-      const { getByText } = renderWithProviders(<PassEntropy />, {
+      const { getByText } = renderWithProviders(<PassInfo />, {
         preloadedState: {
           passwordGenerator: {
             password,
@@ -44,7 +44,7 @@ describe("pass entropy display", () => {
         passwordHealth: { entropy: defaultEntropy },
       });
 
-      const { getByText } = renderWithProviders(<PassEntropy />, {
+      const { getByText } = renderWithProviders(<PassInfo />, {
         store,
       });
 
@@ -68,7 +68,7 @@ describe("pass entropy display", () => {
         },
         passwordHealth: { entropy: defaultEntropy },
       });
-      const { getByText } = renderWithProviders(<PassEntropy />, {
+      const { getByText } = renderWithProviders(<PassInfo />, {
         store,
       });
 
@@ -135,7 +135,7 @@ describe("pass entropy display", () => {
         },
       });
 
-      renderWithProviders(<PassEntropy />, { store: actualStore });
+      renderWithProviders(<PassInfo />, { store: actualStore });
 
       act(() => {
         actualStore.dispatch({
@@ -200,7 +200,7 @@ describe("pass entropy display", () => {
         },
       });
 
-      renderWithProviders(<PassEntropy />, { store: actualStore });
+      renderWithProviders(<PassInfo />, { store: actualStore });
 
       act(() => {
         actualStore.dispatch({

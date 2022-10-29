@@ -43,18 +43,26 @@ const PassInfo = () => {
       ? "primary"
       : colors[state.passwordGenerator.pwnedResult]
   );
+  const calculateEntropy = useAppSelector(
+    (state) => state.settings.toggle[Settings.Entropy]
+  );
 
   const [percent, setPercent] = useState<number>(0);
   const [displayInfo, setInfo] = useState<string>("");
 
   useEffect(() => {
+    if (!calculateEntropy) {
+      setPercent(0);
+      return;
+    }
+
     import("../services/entropy").then(({ default: entropyService }) => {
       const { info, strengthPercent } =
         entropyService.algorithms[entropy].calculator(password);
       setPercent(strengthPercent);
       setInfo(info);
     });
-  }, [password, entropy]);
+  }, [password, entropy, calculateEntropy]);
 
   useEffect(() => {
     if (!(color && ["success", "error"].includes(color))) {
@@ -71,7 +79,12 @@ const PassInfo = () => {
         sx={{ height: 8, borderRadius: 4 }}
         color={color}
       />
-      <Typography variant="overline" align="right" paragraph={true}>
+      <Typography
+        variant="overline"
+        align="right"
+        paragraph={true}
+        display={calculateEntropy ? "inherit" : "none"}
+      >
         {displayInfo}
       </Typography>
     </Box>

@@ -6,6 +6,7 @@ import SettingToggle, { SettingToggleProperty } from "./SettingToggle";
 
 const settingsLabels: SettingToggleProperty[] = [
   { toggleProperty: Settings.DarkTheme, toggleLabel: "Dark theme" },
+  { toggleProperty: Settings.Entropy, toggleLabel: "Get password entropy" },
   { toggleProperty: Settings.AdvancedConfig, toggleLabel: "Advanced options" },
   { toggleProperty: Settings.HaveIBeenPwned, toggleLabel: "HaveIBeenPwned" },
   {

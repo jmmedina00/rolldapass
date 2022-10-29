@@ -1,4 +1,4 @@
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { setupStore } from "../../../app/store";
 import { renderWithProviders } from "../../../utils/test-utils";
@@ -8,15 +8,17 @@ import EntropySelect from "./EntropySelector";
 describe("pass entropy select", () => {
   const defaultEntropy = "zxcvbn";
 
-  it("should reflect the entropy of the store", () => {
+  it("should reflect the entropy of the store", async () => {
     const { getByDisplayValue } = renderWithProviders(<EntropySelect />, {
       preloadedState: { passwordHealth: { entropy: defaultEntropy } },
     });
-    const selector = getByDisplayValue(defaultEntropy) as HTMLInputElement;
+    const selector = await waitFor(
+      () => getByDisplayValue(defaultEntropy) as HTMLInputElement
+    );
     expect(selector).toBeInTheDocument();
   });
 
-  it("should change selected entropy in store", () => {
+  it("should change selected entropy in store", async () => {
     const expectedStore = setupStore({
       passwordHealth: { entropy: defaultEntropy },
     });
@@ -29,7 +31,9 @@ describe("pass entropy select", () => {
     const { getByDisplayValue } = renderWithProviders(<EntropySelect />, {
       store: actualStore,
     });
-    const selector = getByDisplayValue(defaultEntropy) as HTMLInputElement;
+    const selector = await waitFor(
+      () => getByDisplayValue(defaultEntropy) as HTMLInputElement
+    );
 
     act(() => {
       fireEvent.change(selector, { target: { value: "uic" } });

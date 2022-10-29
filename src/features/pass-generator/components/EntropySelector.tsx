@@ -6,22 +6,34 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { changeEntropy } from "../passHealthSlice";
-import entropyService from "../services/entropy";
-
-const entropyItems = entropyService.list.map((name) => [
-  name,
-  entropyService.algorithms[name].label,
-]);
 
 const EntropySelect = () => {
+  const [items, setItems] = useState<JSX.Element[]>([]);
   const dispatch = useAppDispatch();
   const entropy = useAppSelector((state) => state.passwordHealth.entropy);
 
   const handleEntropyChange = (event: SelectChangeEvent) => {
     dispatch(changeEntropy(event.target.value));
   };
+
+  useEffect(() => {
+    import("../services/entropy").then(({ default: entropyService }) => {
+      setItems(
+        entropyService.list.map((name) => (
+          <MenuItem key={name} value={name}>
+            {entropyService.algorithms[name].label}
+          </MenuItem>
+        ))
+      );
+    });
+  }, []);
+
+  if (items.length === 0) {
+    return <div />;
+  }
 
   return (
     <Grid sx={{ textAlign: "right" }}>
@@ -34,11 +46,7 @@ const EntropySelect = () => {
           onChange={handleEntropyChange}
           sx={{ minWidth: 300, textAlign: "left" }}
         >
-          {entropyItems.map(([key, label]) => (
-            <MenuItem key={key} value={key}>
-              {label}
-            </MenuItem>
-          ))}
+          {items}
         </Select>
       </FormControl>
     </Grid>

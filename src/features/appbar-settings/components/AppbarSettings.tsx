@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openAbout, toggleDrawer } from "../settingsSlice";
 import About from "./About";
 import DrawerContents from "./DrawerContents";
+import LanguageChanger from "./LanguageChanger";
 
 const drawerSmallDisplay = { variant: "temporary" as DrawerProps["variant"] };
 
@@ -124,7 +125,7 @@ const AppBarSettings = () => {
         onClose={handleCloseMenu}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>Language: English</MenuItem>
+        <LanguageChanger />
         <MenuItem onClick={handleOpenAbout}>About</MenuItem>
       </Menu>
       <About />

@@ -1,4 +1,5 @@
 import { MenuItem } from "@mui/material";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageChanger = () => {
@@ -11,6 +12,15 @@ const LanguageChanger = () => {
 
     i18n.changeLanguage(languages[newIndex]);
   };
+
+  useEffect(() => {
+    if (currentLang.indexOf("-") === -1) {
+      return;
+    }
+
+    const [actualLang] = currentLang.split("-");
+    i18n.changeLanguage(actualLang);
+  }, [currentLang]);
 
   return <MenuItem onClick={handleClick}>Language: English</MenuItem>;
 };

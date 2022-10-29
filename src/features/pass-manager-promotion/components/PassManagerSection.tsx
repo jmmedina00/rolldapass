@@ -1,5 +1,4 @@
-import { Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Typography, Box } from "@mui/material";
 import { PromotionSection } from "../constants";
 import PassManagerCard from "./PassManagerCard";
 

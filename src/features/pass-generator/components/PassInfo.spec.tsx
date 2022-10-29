@@ -12,6 +12,8 @@ import {
 } from "../../notification/notificationSlice";
 import { waitFor } from "@testing-library/react";
 
+console.error = jest.fn(); // whole suite is buzzing noise due to lazy loading
+
 describe("pass complementary display", () => {
   const password = "1234qwer";
   const defaultEntropy = "zxcvbn";

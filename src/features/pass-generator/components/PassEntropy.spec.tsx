@@ -10,13 +10,14 @@ import {
   NotificationType,
   setupNotification,
 } from "../../notification/notificationSlice";
+import { waitFor } from "@testing-library/react";
 
 describe("pass entropy display", () => {
   const password = "1234qwer";
   const defaultEntropy = "zxcvbn";
 
   describe("entropy handling", () => {
-    it("should take parameters from store", () => {
+    it("should take parameters from store", async () => {
       const { getByText } = renderWithProviders(<PassEntropy />, {
         preloadedState: {
           passwordGenerator: {
@@ -29,11 +30,11 @@ describe("pass entropy display", () => {
       });
 
       const expected = entropy.algorithms[defaultEntropy].calculator(password);
-      expect(getByText(expected.info)).toBeInTheDocument();
+      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
       // Would love to test progress bar if I knew how...
     });
 
-    it("should refresh when password changes", () => {
+    it("should refresh when password changes", async () => {
       const store = setupStore({
         passwordGenerator: {
           password,
@@ -55,10 +56,10 @@ describe("pass entropy display", () => {
         store.dispatch(changePassword(newPassword));
       });
 
-      expect(getByText(expected.info)).toBeInTheDocument();
+      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
     });
 
-    it("should refresh when selected entropy changes", () => {
+    it("should refresh when selected entropy changes", async () => {
       const store = setupStore({
         passwordGenerator: {
           password,
@@ -77,7 +78,7 @@ describe("pass entropy display", () => {
         store.dispatch(changeEntropy("uic"));
       });
 
-      expect(getByText(expected.info)).toBeInTheDocument();
+      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
     });
   });
 

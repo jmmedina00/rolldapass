@@ -9,7 +9,6 @@ import {
   setupNotification,
 } from "../../notification/notificationSlice";
 import { PasswordState } from "../passwordSlice";
-import entropyService from "../services/entropy";
 
 const colors: {
   [key in PasswordState["pwnedResult"]]: LinearProgressProps["color"];
@@ -49,10 +48,12 @@ const PassEntropy = () => {
   const [displayInfo, setInfo] = useState<string>("");
 
   useEffect(() => {
-    const { info, strengthPercent } =
-      entropyService.algorithms[entropy].calculator(password);
-    setPercent(strengthPercent);
-    setInfo(info);
+    import("../services/entropy").then(({ default: entropyService }) => {
+      const { info, strengthPercent } =
+        entropyService.algorithms[entropy].calculator(password);
+      setPercent(strengthPercent);
+      setInfo(info);
+    });
   }, [password, entropy]);
 
   useEffect(() => {

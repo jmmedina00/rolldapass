@@ -12,6 +12,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openAbout, toggleDrawer } from "../settingsSlice";
@@ -86,7 +87,7 @@ const AppBarSettings = () => {
   return (
     <div>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
           width: { md: drawerOpen ? `calc(100% - 256px)` : "100%", xs: "100%" },
           ml: { md: drawerOpen ? "256px" : "inherit", xs: "inherit" },
@@ -129,6 +130,7 @@ const AppBarSettings = () => {
         <MenuItem onClick={handleOpenAbout}>About</MenuItem>
       </Menu>
       <About />
+      <Box height={theme.mixins.toolbar.minHeight} />
     </div>
   );
 };

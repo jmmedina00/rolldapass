@@ -76,18 +76,26 @@ const About = () => {
           and distributed under the terms of the MIT License
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Typography variant="h6">zxcvbn</Typography>
+          <Typography component="span" variant="h6">
+            zxcvbn
+          </Typography>
           <Typography variant="overline">by Dropbox</Typography>
           {}
-          <Typography variant="h6">KeePass</Typography>
+          <Typography component="span" variant="h6">
+            KeePass
+          </Typography>
           <Typography variant="overline">
             implemented with Password-Quality-Calculator by EYHN
           </Typography>
           {}
-          <Typography variant="h6">Password Meter / UIC</Typography>
+          <Typography component="span" variant="h6">
+            Password Meter / UIC
+          </Typography>
           <Typography variant="overline">implemented by Hamed Fathi</Typography>
           {}
-          <Typography variant="h6">TAI Shannon</Typography>
+          <Typography component="span" variant="h6">
+            TAI Shannon
+          </Typography>
           <Typography variant="overline">
             included in tai-password-strength by tests-always-included
           </Typography>
@@ -96,7 +104,9 @@ const About = () => {
           Password checking services provided by{" "}
           <Link href={haveIBeenPwned}>HaveIBeenPwned</Link> under the Creative
           Commons 4.0 International License
-          <Box>CC/BY badge here</Box>
+          <Box component="span" display="block">
+            CC/BY badge here
+          </Box>
         </TabPanel>
       </DialogContent>
     </Dialog>

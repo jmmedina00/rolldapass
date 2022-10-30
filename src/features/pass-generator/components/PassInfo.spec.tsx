@@ -27,6 +27,11 @@ describe("pass complementary display", () => {
             copiedTimeout: undefined,
             pwnedResult: "none",
           },
+          settings: {
+            settingsOpen: false,
+            aboutOpen: false,
+            toggle: { [Settings.Entropy]: true },
+          },
           passwordHealth: { entropy: defaultEntropy },
         },
       });
@@ -42,6 +47,11 @@ describe("pass complementary display", () => {
           password,
           copiedTimeout: undefined,
           pwnedResult: "none",
+        },
+        settings: {
+          settingsOpen: false,
+          aboutOpen: false,
+          toggle: { [Settings.Entropy]: true },
         },
         passwordHealth: { entropy: defaultEntropy },
       });
@@ -67,6 +77,11 @@ describe("pass complementary display", () => {
           password,
           copiedTimeout: undefined,
           pwnedResult: "none",
+        },
+        settings: {
+          settingsOpen: false,
+          aboutOpen: false,
+          toggle: { [Settings.Entropy]: true },
         },
         passwordHealth: { entropy: defaultEntropy },
       });

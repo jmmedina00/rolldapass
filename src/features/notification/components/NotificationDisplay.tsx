@@ -1,10 +1,12 @@
 import { Alert, Snackbar } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { closeNotification, NotificationType } from "../notificationSlice";
 import ClipboardClearButton from "./ClipboardClearButton";
 
 const NotificationDisplay = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation("notification");
   const { open, type, severity, message } = useAppSelector(
     (state) => state.notification
   );
@@ -25,7 +27,7 @@ const NotificationDisplay = () => {
         }
         onClose={type === NotificationType.normal ? handleClose : undefined}
       >
-        {message}
+        {t(message)}
       </Alert>
     </Snackbar>
   );

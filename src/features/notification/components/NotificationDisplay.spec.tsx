@@ -5,6 +5,18 @@ import { closeNotification, NotificationType } from "../notificationSlice";
 import ClipboardClearButton from "./ClipboardClearButton";
 import NotificationDisplay from "./NotificationDisplay";
 
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}));
+
 jest.mock("./ClipboardClearButton");
 
 describe("notification display", () => {

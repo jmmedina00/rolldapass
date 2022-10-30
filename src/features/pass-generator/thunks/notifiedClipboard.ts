@@ -16,7 +16,7 @@ export const clearClipboard =
         setupNotification({
           type: NotificationType.clipboard,
           severity: "error",
-          message: "Failed to clear clipboard",
+          message: "clipboard.failure",
         })
       );
     }
@@ -31,7 +31,7 @@ export const copyPasswordToClipboard =
       setupNotification({
         type: NotificationType.normal,
         severity: "success",
-        message: "Password copied to clipboard",
+        message: "clipboard.success",
       })
     );
   };

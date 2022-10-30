@@ -53,7 +53,7 @@ describe("notified clipboard thunks", () => {
         setupNotification({
           type: NotificationType.normal,
           severity: "success",
-          message: "Password copied to clipboard",
+          message: "clipboard.success",
         })
       );
 
@@ -159,7 +159,7 @@ describe("notified clipboard thunks", () => {
         setupNotification({
           type: NotificationType.clipboard,
           severity: "error",
-          message: "Failed to clear clipboard",
+          message: "clipboard.failure",
         })
       );
 

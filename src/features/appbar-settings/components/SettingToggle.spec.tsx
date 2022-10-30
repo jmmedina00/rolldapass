@@ -5,14 +5,24 @@ import { renderWithProviders } from "../../../utils/test-utils";
 import { initializeSetting, toggleSetting } from "../settingsSlice";
 import SettingToggle from "./SettingToggle";
 
-export const test = 2;
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}));
 
 describe("setting toggle", () => {
   it.each([true, false])(
     "should reflect the store's state",
     (toggleEnabled) => {
       const { getByRole } = renderWithProviders(
-        <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
+        <SettingToggle property={"test"} />,
         {
           preloadedState: {
             settings: {
@@ -48,7 +58,7 @@ describe("setting toggle", () => {
     });
 
     const { getByRole } = renderWithProviders(
-      <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
+      <SettingToggle property={"test"} />,
       {
         store: actualStore,
       }
@@ -81,12 +91,9 @@ describe("setting toggle", () => {
       },
     });
 
-    renderWithProviders(
-      <SettingToggle toggleProperty={"test"} toggleLabel={"Test here"} />,
-      {
-        store: actualStore,
-      }
-    );
+    renderWithProviders(<SettingToggle property={"test"} />, {
+      store: actualStore,
+    });
 
     expect(expectedStore.getState()).toEqual(actualStore.getState());
   });

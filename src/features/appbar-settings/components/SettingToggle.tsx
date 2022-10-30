@@ -1,27 +1,23 @@
 import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { initializeSetting, toggleSetting } from "../settingsSlice";
 
-export interface SettingToggleProperty {
-  toggleProperty: string;
-  toggleLabel: string;
+interface SettingToggleProperty {
+  property: string;
 }
 
-const SettingToggle = ({
-  toggleProperty,
-  toggleLabel,
-}: SettingToggleProperty) => {
+const SettingToggle = ({ property }: SettingToggleProperty) => {
   const dispatch = useAppDispatch();
-  const enabled = useAppSelector(
-    (state) => state.settings.toggle[toggleProperty]
-  );
+  const { t } = useTranslation("settings");
+  const enabled = useAppSelector((state) => state.settings.toggle[property]);
 
   if (enabled === undefined) {
-    dispatch(initializeSetting(toggleProperty));
+    dispatch(initializeSetting(property));
   }
 
   const handleChange = () => {
-    dispatch(toggleSetting(toggleProperty));
+    dispatch(toggleSetting(property));
   };
 
   const toggle = <Switch checked={enabled || false} onChange={handleChange} />;
@@ -31,7 +27,7 @@ const SettingToggle = ({
       <FormControlLabel
         labelPlacement="start"
         control={toggle}
-        label={toggleLabel}
+        label={t("toggles." + property)}
         sx={{ width: "calc(100% - 16px)" }}
       />
     </FormGroup>

@@ -2,31 +2,17 @@ import { Button, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { usePWAInstall } from "react-use-pwa-install";
 import { Settings } from "../constants";
-import SettingToggle, { SettingToggleProperty } from "./SettingToggle";
-
-const settingsLabels: SettingToggleProperty[] = [
-  { toggleProperty: Settings.DarkTheme, toggleLabel: "Dark theme" },
-  { toggleProperty: Settings.Entropy, toggleLabel: "Get password entropy" },
-  { toggleProperty: Settings.AdvancedConfig, toggleLabel: "Advanced options" },
-  { toggleProperty: Settings.HaveIBeenPwned, toggleLabel: "HaveIBeenPwned" },
-  {
-    toggleProperty: Settings.PassManagerOrganized,
-    toggleLabel: "Organize password managers",
-  },
-];
+import SettingToggle from "./SettingToggle";
 
 const DrawerContents = () => {
   const install = usePWAInstall();
+  const settings = Object.entries(Settings);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: 1 }}>
       <Stack sx={{ flexGrow: 1 }}>
-        {settingsLabels.map(({ toggleProperty, toggleLabel }) => (
-          <SettingToggle
-            key={toggleProperty}
-            toggleProperty={toggleProperty}
-            toggleLabel={toggleLabel}
-          />
+        {settings.map(([_, property]) => (
+          <SettingToggle key={property} property={property} />
         ))}
       </Stack>
       <Button

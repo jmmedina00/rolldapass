@@ -5,6 +5,18 @@ import { renderWithProviders } from "../../../utils/test-utils";
 import { changeEntropy } from "../passHealthSlice";
 import EntropySelect from "./EntropySelector";
 
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}));
+
 describe("pass entropy select", () => {
   const defaultEntropy = "zxcvbn";
 

@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import useKeyboardShortcut from "use-keyboard-shortcut";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Settings } from "../../appbar-settings/constants";
@@ -21,6 +22,7 @@ import {
 
 const PassField = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation("passgen");
 
   const password = useAppSelector((state) => state.passwordGenerator.password);
   const charsets = useAppSelector(selectNormalizedCharsets);
@@ -105,7 +107,12 @@ const PassField = () => {
     <InputAdornment position="end">
       <Tooltip
         title={
-          showPassword ? "Hide password (Alt + V)" : "Show password (Alt + V)"
+          t(
+            showPassword
+              ? "buttonTooltips.passHide"
+              : "buttonTooltips.passShow",
+            { shortcut: "Alt + V" }
+          ) as string
         }
         placement="top"
       >
@@ -113,7 +120,10 @@ const PassField = () => {
           <Icon>{showPassword ? "visibility_off" : "visibility"}</Icon>
         </IconButton>
       </Tooltip>
-      <Tooltip title="Regenerate password (Ctrl + R)" placement="top">
+      <Tooltip
+        title={t("buttonTooltips.reroll", { shortcut: "Ctrl + R" }) as string}
+        placement="top"
+      >
         <span>
           <IconButton
             onClick={refreshPassword}
@@ -123,7 +133,12 @@ const PassField = () => {
           </IconButton>
         </span>
       </Tooltip>
-      <Tooltip title="Copy password (Ctrl + C)" placement="top">
+      <Tooltip
+        title={
+          t("buttonTooltips.clipboard", { shortcut: "Ctrl + C" }) as string
+        }
+        placement="top"
+      >
         <span>
           <IconButton
             onClick={handleCopyToClipboard}
@@ -138,7 +153,7 @@ const PassField = () => {
 
   return (
     <FormControl variant="filled" fullWidth>
-      <InputLabel htmlFor="password">Generate your password</InputLabel>
+      <InputLabel htmlFor="password">{t("fieldLabel")}</InputLabel>
       <FilledInput
         id="password"
         endAdornment={passwordInputButtons}

@@ -7,10 +7,12 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { changeEntropy } from "../passHealthSlice";
 
 const EntropySelect = () => {
+  const { t } = useTranslation("passgen");
   const [items, setItems] = useState<JSX.Element[]>([]);
   const dispatch = useAppDispatch();
   const entropy = useAppSelector((state) => state.passwordHealth.entropy);
@@ -38,7 +40,7 @@ const EntropySelect = () => {
   return (
     <Grid sx={{ textAlign: "right" }}>
       <FormControl>
-        <InputLabel>Entropy algorythm</InputLabel>
+        <InputLabel>{t("entropySelect")}</InputLabel>
         <Select
           label="Entropy algorythm"
           variant="outlined"

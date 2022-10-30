@@ -11,7 +11,7 @@ const PassManagerPromotion = () => {
   );
 
   const sections = Object.entries(passManagers).map(([key, section]) => (
-    <PassManagerSection key={key} {...section} />
+    <PassManagerSection key={key} {...{ ...section, label: key }} />
   ));
 
   const flatCards = Object.entries(passManagers)

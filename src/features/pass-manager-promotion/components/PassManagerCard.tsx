@@ -6,15 +6,12 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../../app/hooks";
 import { PassManagerInfo } from "../constants";
 
-const PassManagerCard = ({
-  name,
-  description,
-  image,
-  url,
-}: PassManagerInfo) => {
+const PassManagerCard = ({ name, image, url }: PassManagerInfo) => {
+  const { t } = useTranslation("promotion");
   const isSettingsOpen = useAppSelector((state) => state.settings.settingsOpen);
 
   return (
@@ -31,10 +28,10 @@ const PassManagerCard = ({
         >
           <Typography variant="h6">{name}</Typography>
           <Typography variant="body2" sx={{ flexGrow: 1 }}>
-            {description}
+            {t("descriptions." + name)}
           </Typography>
           <Button href={url} fullWidth>
-            Go to website
+            {t("link")}
           </Button>
         </CardContent>
       </Card>

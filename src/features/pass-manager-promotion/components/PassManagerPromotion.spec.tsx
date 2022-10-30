@@ -3,9 +3,21 @@ import { Settings } from "../../appbar-settings/constants";
 import { passManagers } from "../constants";
 import PassManagerPromotion from "./PassManagerPromotion";
 
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}));
+
 describe("pass manager promotion", () => {
   const exampleTitles = Object.entries(passManagers).map(
-    ([_, { label }]) => label
+    ([key]) => "sections." + key
   );
 
   const examplePassManagersTitles = Object.entries(passManagers).map(

@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "./app/hooks";
 import AppBarSettings from "./features/appbar-settings";
 import { Settings } from "./features/appbar-settings/constants";
@@ -26,6 +27,8 @@ const withDrawerStyle = {
 };
 
 const App = () => {
+  const { t } = useTranslation();
+
   const {
     settingsOpen,
     toggle: { [Settings.DarkTheme]: darkThemeToggled },
@@ -57,7 +60,7 @@ const App = () => {
             </Paper>
 
             <Typography variant="h5">
-              You should use a password manager such as...
+              {t("header", { ns: "promotion" })}
             </Typography>
             <PassManagerPromotion />
           </Stack>

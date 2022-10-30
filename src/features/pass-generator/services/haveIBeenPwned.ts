@@ -2,7 +2,7 @@ import { SHA1 } from "crypto-js";
 
 export const checkPassword = async (password: string): Promise<boolean> => {
   const passwordHash = SHA1(password).toString();
-  const [_, hashStart] = passwordHash.match(/^(.{5}).+$/) as string[];
+  const hashStart = (passwordHash.match(/^(.{5}).+$/) as string[])[1];
 
   const response = await fetch(
     `https://api.pwnedpasswords.com/range/${hashStart}`

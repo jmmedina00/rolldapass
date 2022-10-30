@@ -12,6 +12,19 @@ import {
 } from "../../notification/notificationSlice";
 import { waitFor } from "@testing-library/react";
 
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str: string, obj: { result: number }) =>
+        str + " " + obj.result.toString(),
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    };
+  },
+}));
+
 console.error = jest.fn(); // whole suite is buzzing noise due to lazy loading
 
 describe("pass complementary display", () => {
@@ -37,7 +50,11 @@ describe("pass complementary display", () => {
       });
 
       const expected = entropy.algorithms[defaultEntropy].calculator(password);
-      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
+      await waitFor(() =>
+        expect(
+          getByText("entropyResults.zxcvbn " + expected.numericResult)
+        ).toBeInTheDocument()
+      );
       // Would love to test progress bar if I knew how...
     });
 
@@ -68,7 +85,11 @@ describe("pass complementary display", () => {
         store.dispatch(changePassword(newPassword));
       });
 
-      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
+      await waitFor(() =>
+        expect(
+          getByText("entropyResults.zxcvbn " + expected.numericResult)
+        ).toBeInTheDocument()
+      );
     });
 
     it("should refresh when selected entropy changes", async () => {
@@ -95,7 +116,11 @@ describe("pass complementary display", () => {
         store.dispatch(changeEntropy("uic"));
       });
 
-      await waitFor(() => expect(getByText(expected.info)).toBeInTheDocument());
+      await waitFor(() =>
+        expect(
+          getByText("entropyResults.uic " + expected.numericResult)
+        ).toBeInTheDocument()
+      );
     });
   });
 
@@ -127,7 +152,7 @@ describe("pass complementary display", () => {
       expectedStore.dispatch(
         setupNotification({
           type: NotificationType.normal,
-          message: "Password checked successfully",
+          message: "pwned.good",
           severity: "success",
         })
       );
@@ -191,8 +216,7 @@ describe("pass complementary display", () => {
       expectedStore.dispatch(
         setupNotification({
           type: NotificationType.pwned,
-          message:
-            "Password found (or an error occurred). You may not copy this password",
+          message: "pwned.bad",
           severity: "error",
         })
       );

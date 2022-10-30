@@ -9,7 +9,7 @@ const taiCodes = ["VERY_WEAK", "WEAK", "REASONABLE", "STRONG", "VERY_STRONG"];
 
 export interface EntropyResult {
   strengthPercent: number;
-  info: string;
+  numericResult: number;
 }
 
 export interface EntropyAlgorithm {
@@ -24,7 +24,7 @@ const uic: EntropyAlgorithm = {
 
     return {
       strengthPercent: result.percent,
-      info: `Score: ${result.score} points`,
+      numericResult: result.score,
     };
   },
 };
@@ -37,7 +37,7 @@ const shannon: EntropyAlgorithm = {
     return {
       strengthPercent:
         (taiCodes.indexOf(result.strengthCode) / (taiCodes.length - 1)) * 100,
-      info: `Entropy: ${result.shannonEntropyBits} bits`,
+      numericResult: result.shannonEntropyBits,
     };
   },
 };
@@ -49,7 +49,7 @@ const keepass: EntropyAlgorithm = {
 
     return {
       strengthPercent: ((entropy >= 128 ? 128 : entropy) / 128) * 100,
-      info: `Entropy: ${entropy} bits`,
+      numericResult: entropy,
     };
   },
 };
@@ -60,7 +60,7 @@ const zxcvbnAlgorithm: EntropyAlgorithm = {
     const result = zxcvbn(password);
 
     return {
-      info: `Strength: ${result.guesses_log10}`,
+      numericResult: result.guesses_log10,
       strengthPercent: (result.score / 4) * 100,
     };
   },

@@ -76,24 +76,24 @@ const About = () => {
           and distributed under the terms of the MIT License
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Typography component="span" variant="h6">
+          <Typography component="span" variant="h6" display="block">
             zxcvbn
           </Typography>
           <Typography variant="overline">by Dropbox</Typography>
           {}
-          <Typography component="span" variant="h6">
+          <Typography component="span" variant="h6" display="block">
             KeePass
           </Typography>
           <Typography variant="overline">
             implemented with Password-Quality-Calculator by EYHN
           </Typography>
           {}
-          <Typography component="span" variant="h6">
+          <Typography component="span" variant="h6" display="block">
             Password Meter / UIC
           </Typography>
           <Typography variant="overline">implemented by Hamed Fathi</Typography>
           {}
-          <Typography component="span" variant="h6">
+          <Typography component="span" variant="h6" display="block">
             TAI Shannon
           </Typography>
           <Typography variant="overline">

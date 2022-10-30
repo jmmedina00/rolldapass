@@ -21,7 +21,7 @@ describe("language changer option", () => {
     });
 
     const { getByText } = renderWithProviders(<LanguageChanger />);
-    const item = getByText("Language: English");
+    const item = getByText("currentLanguage");
 
     act(() => {
       item.click();
@@ -45,7 +45,7 @@ describe("language changer option", () => {
     });
 
     const { getByText } = renderWithProviders(<LanguageChanger />);
-    const item = getByText("Language: English");
+    const item = getByText("currentLanguage");
 
     act(() => {
       item.click();

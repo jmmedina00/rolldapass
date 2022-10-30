@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { closeAbout } from "../settingsSlice";
 
@@ -34,6 +35,7 @@ const TabPanel = ({ children, index, value }: TabPanelProps) => (
 
 const About = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation("settings");
   const aboutOpen = useAppSelector((state) => state.settings.aboutOpen);
   const [tabValue, setTabValue] = useState<number>(0);
 
@@ -48,7 +50,7 @@ const About = () => {
   return (
     <Dialog open={aboutOpen} onClose={handleCloseAbout} fullWidth>
       <DialogTitle sx={{ display: "flex" }}>
-        <Box sx={{ flexGrow: 1, lineHeight: 1.9 }}>About</Box>
+        <Box sx={{ flexGrow: 1, lineHeight: 1.9 }}>{t("about.title")}</Box>
         <IconButton onClick={handleCloseAbout}>
           <Icon>close</Icon>
         </IconButton>
@@ -67,43 +69,54 @@ const About = () => {
           </Grid>
         </Grid>
         <Tabs value={tabValue} onChange={handleChangeTab}>
-          <Tab label="About" />
-          <Tab label="Libraries" />
-          <Tab label="Other" />
+          <Tab label={t("about.tabs.about")} />
+          <Tab label={t("about.tabs.libraries")} />
+          <Tab label={t("about.tabs.other")} />
         </Tabs>
         <TabPanel value={tabValue} index={0}>
-          Created by <Link href={linkedinSpam}>Juan Miguel Medina Prieto</Link>{" "}
-          and distributed under the terms of the MIT License
+          {t("about.main.created")}
+          <Link href={linkedinSpam}>Juan Miguel Medina Prieto</Link>
+          {t("about.main.license")}
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           <Typography component="span" variant="h6" display="block">
             zxcvbn
           </Typography>
-          <Typography variant="overline">by Dropbox</Typography>
+          <Typography variant="overline">
+            {t("about.libraries.zxcvbn", { author: "Dropbox" })}
+          </Typography>
           {}
           <Typography component="span" variant="h6" display="block">
             KeePass
           </Typography>
           <Typography variant="overline">
-            implemented with Password-Quality-Calculator by EYHN
+            {t("about.libraries.keepass", {
+              library: "Password-Quality-Calculator",
+              author: "EYHN",
+            })}
           </Typography>
           {}
           <Typography component="span" variant="h6" display="block">
             Password Meter / UIC
           </Typography>
-          <Typography variant="overline">implemented by Hamed Fathi</Typography>
+          <Typography variant="overline">
+            {t("about.libraries.uic", { author: "Hamed Fathi" })}
+          </Typography>
           {}
           <Typography component="span" variant="h6" display="block">
             TAI Shannon
           </Typography>
           <Typography variant="overline">
-            included in tai-password-strength by tests-always-included
+            {t("about.libraries.tai", {
+              library: "tai-password-strength",
+              author: "tests-always-included",
+            })}
           </Typography>
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          Password checking services provided by{" "}
-          <Link href={haveIBeenPwned}>HaveIBeenPwned</Link> under the Creative
-          Commons 4.0 International License
+          {t("about.other.checking")}
+          <Link href={haveIBeenPwned}>HaveIBeenPwned</Link>
+          {t("about.other.license")}
           <Box component="span" display="block">
             CC/BY badge here
           </Box>

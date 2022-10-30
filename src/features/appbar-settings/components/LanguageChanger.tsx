@@ -22,7 +22,7 @@ const LanguageChanger = () => {
     i18n.changeLanguage(actualLang);
   }, [currentLang]);
 
-  return <MenuItem onClick={handleClick}>Language: English</MenuItem>;
+  return <MenuItem onClick={handleClick}>{t("currentLanguage")}</MenuItem>;
 };
 
 export default LanguageChanger;

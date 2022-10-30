@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openAbout, toggleDrawer } from "../settingsSlice";
 import About from "./About";
@@ -38,6 +39,7 @@ const drawerLargeDisplay = {
 
 const AppBarSettings = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation("settings");
   const drawerOpen = useAppSelector((state) => state.settings.settingsOpen);
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
   const menuOpen = !!anchorMenu;
@@ -127,7 +129,7 @@ const AppBarSettings = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <LanguageChanger />
-        <MenuItem onClick={handleOpenAbout}>About</MenuItem>
+        <MenuItem onClick={handleOpenAbout}>{t("aboutItem")}</MenuItem>
       </Menu>
       <About />
       <Box height={theme.mixins.toolbar.minHeight} />

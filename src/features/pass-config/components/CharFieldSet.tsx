@@ -1,9 +1,11 @@
 import { Grid, TextField } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { changeAdditionalCharset } from "../configSlice";
 
 const CharFieldSet = () => {
+  const { t } = useTranslation("config");
   const dispatch = useAppDispatch();
 
   const include = useAppSelector(
@@ -28,7 +30,7 @@ const CharFieldSet = () => {
     >
       <Grid item sm={6} xs={12}>
         <TextField
-          label="Include characters"
+          label={t("includeCharacters")}
           fullWidth
           variant="outlined"
           value={include}
@@ -37,7 +39,7 @@ const CharFieldSet = () => {
       </Grid>
       <Grid item sm={6} xs={12}>
         <TextField
-          label="Exclude characters"
+          label={t("excludeCharacters")}
           fullWidth
           variant="outlined"
           value={exclude}

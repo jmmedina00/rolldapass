@@ -20,7 +20,7 @@ const LanguageChanger = () => {
 
     const [actualLang] = currentLang.split("-");
     i18n.changeLanguage(actualLang);
-  }, [currentLang]);
+  }, [currentLang, i18n]);
 
   return <MenuItem onClick={handleClick}>{t("currentLanguage")}</MenuItem>;
 };

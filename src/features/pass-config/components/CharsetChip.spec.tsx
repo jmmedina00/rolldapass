@@ -26,7 +26,7 @@ describe("charset chip component", () => {
     const { getByText } = renderWithProviders(<CharsetChip {...chipInfo} />, {
       store: actualStore,
     });
-    const renderedChip = getByText(chipInfo.label);
+    const renderedChip = getByText(chipInfo.label as string);
 
     act(() => {
       renderedChip.click();
@@ -54,7 +54,8 @@ describe("charset chip component", () => {
         },
       });
 
-      const chip = getByText(chipInfo.label).parentElement as HTMLElement;
+      const chip = getByText(chipInfo.label as string)
+        .parentElement as HTMLElement;
 
       expect(Array.from(chip.classList)).toContain(interestingClass);
     }

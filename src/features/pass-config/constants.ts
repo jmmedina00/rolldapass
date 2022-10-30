@@ -1,7 +1,12 @@
 import { CharsetCategory } from "./configSlice";
 
+export interface TranslatedLabel {
+  key: string;
+  clarification?: string;
+}
+
 export default interface CharsetDefinition {
-  label: string;
+  label: string | TranslatedLabel;
   charset: string;
   category: CharsetCategory;
 }
@@ -27,15 +32,31 @@ export const EXTENDED_ASCII = String.fromCharCode(
 );
 
 export const charsetsBasic: CharsetDefinition[] = [
-  { label: "Uppercase (A-Z)", charset: LETTERS_UPPERCASE, category: "basic" },
-  { label: "Lowercase (a-z)", charset: LETTERS_LOWERCASE, category: "basic" },
-  { label: "Numbers (0-9)", charset: DIGITS, category: "basic" },
   {
-    label: "Special characters",
+    label: { key: "charsets.uppercase", clarification: "A-Z" },
+    charset: LETTERS_UPPERCASE,
+    category: "basic",
+  },
+  {
+    label: { key: "charsets.lowercase", clarification: "a-z" },
+    charset: LETTERS_LOWERCASE,
+    category: "basic",
+  },
+  {
+    label: { key: "charsets.numbers", clarification: "0-9" },
+    charset: DIGITS,
+    category: "basic",
+  },
+  {
+    label: { key: "charsets.special" },
     charset: SPECIAL_CHARACTERS,
     category: "basic",
   },
-  { label: "Extended ASCII", charset: EXTENDED_ASCII, category: "basic" },
+  {
+    label: { key: "charsets.extended" },
+    charset: EXTENDED_ASCII,
+    category: "basic",
+  },
 ];
 
 export const charsetsAdvanced: CharsetDefinition[] = [
@@ -47,7 +68,11 @@ export const charsetsAdvanced: CharsetDefinition[] = [
     charset: SPECIAL_CHARACTERS,
     category: "basic",
   },
-  { label: "Extended ASCII", charset: EXTENDED_ASCII, category: "basic" },
+  {
+    label: { key: "charsets.extended" },
+    charset: EXTENDED_ASCII,
+    category: "basic",
+  },
   { label: PUNCTUATION, charset: PUNCTUATION, category: "advanced" },
   { label: QUOTATION, charset: QUOTATION, category: "advanced" },
   { label: LINES, charset: LINES, category: "advanced" },

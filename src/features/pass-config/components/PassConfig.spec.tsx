@@ -28,7 +28,7 @@ describe("pass configuration", () => {
         },
       });
 
-      expect(getByText("Uppercase (A-Z)")).toBeInTheDocument();
+      expect(getByText("charsets.uppercase")).toBeInTheDocument();
     });
 
     it("should not display include/exclude", () => {

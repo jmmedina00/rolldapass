@@ -1,0 +1,16 @@
+{
+  "fieldLabel": "Genera tu contraseña",
+  "buttonTooltips": {
+    "passShow": "Mostrar contraseña ({{shortcut}})",
+    "passHide": "Ocultar contraseña ({{shortcut}})",
+    "reroll": "Regenerar contraseña ({{shortcut}})",
+    "clipboard": "Copiar contraseña ({{shortcut}})"
+  },
+  "entropySelect": "Algoritmo de entropía",
+  "entropyResults": {
+    "uic": "{{result}} puntos",
+    "shannon": "Entropía: {{result}} bits",
+    "keepass": "Entropía: {{result}} bits",
+    "zxcvbn": "Fuerza: {{result}}"
+  }
+}

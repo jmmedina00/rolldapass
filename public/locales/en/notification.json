@@ -1,0 +1,11 @@
+{
+  "pwned": {
+    "good": "Password checked successfully",
+    "bad": "Password found (or an error occurred). You may not copy this password"
+  },
+  "clipboard": {
+    "success": "Password copied to clipboard",
+    "failure": "Failed to clear clipboard",
+    "clear": "Clear manually"
+  }
+}

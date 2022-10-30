@@ -1,4 +1,13 @@
 {
   "length": "Password length",
-  "charsetsLabel": "Character sets"
+  "charsetsLabel": "Character sets",
+  "includeCharacters": "Include characters",
+  "excludeCharacters": "Exclude characters",
+  "charsets": {
+    "uppercase": "Uppercase ({{clarify}})",
+    "lowercase": "Lowercase ({{clarify}})",
+    "numbers": "Numbers ({{clarify}})",
+    "special": "Special characters",
+    "extended": "Extended ASCII"
+  }
 }

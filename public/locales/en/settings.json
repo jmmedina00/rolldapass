@@ -1,0 +1,34 @@
+{
+  "currentLanguage": "Language: English",
+  "aboutItem": "About",
+  "install": "Install to desktop",
+  "toggles": {
+    "dark": "Dark theme",
+    "entropy": "Get password entropy",
+    "advanced": "Advanced options",
+    "haveibeenpwned": "HaveIBeenPwned",
+    "passmanagerorganized": "Organize password managers"
+  },
+  "about": {
+    "title": "About",
+    "tabs": {
+      "about": "About",
+      "libraries": "Libraries",
+      "other": "Other"
+    },
+    "main": {
+      "created": "Created by ",
+      "license": " and distributed under the terms of the MIT License"
+    },
+    "other": {
+      "checking": "Password checking services provided by ",
+      "license": " under the Creative Commons 4.0 International License"
+    },
+    "libraries": {
+      "zxcvbn": "by {{author}}",
+      "keepass": "implemented with {{library}} by {{author}}",
+      "uic": "implemented by {{author}}",
+      "tai": "included in {{library}} by {{author}}"
+    }
+  }
+}

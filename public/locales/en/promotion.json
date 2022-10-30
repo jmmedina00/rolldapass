@@ -1,0 +1,21 @@
+{
+  "header": "You should use a password manager such as...",
+  "link": "Go to website",
+  "sections": {
+    "commercial": "Commercial services",
+    "foss": "Open-source"
+  },
+  "descriptions": {
+    "Dashlane": "Also features a VPN!",
+    "LastPass": "Now you can go passwordless!",
+    "Keeper": "Features encrypted messaging.",
+    "1Password": "Ideal for families.",
+    "NordPass": "It can detect data breaches.",
+    "Blur": "Protects your privacy.",
+    "Bitwarden": "Cloud service that you can self-host.",
+    "KeePass": "Saves your passwords in a standard local database file.",
+    "KeePassXC": "KeePass but works natively in any OS.",
+    "KeeWeb": "KeePass on your web browser... or Electron.",
+    "pass": "Store passwords in GPG-encrypted files."
+  }
+}

@@ -8,6 +8,8 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    ns: ["config", "notification", "passgen", "promotion", "settings"],
+    preload: ["en", "es"],
     fallbackLng: "en",
     debug: true,
     interpolation: { escapeValue: false },

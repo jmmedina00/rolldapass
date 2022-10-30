@@ -1,0 +1,11 @@
+{
+  "pwned": {
+    "good": "Contraseña comprobada con éxito",
+    "bad": "Contraseña comprometida (o ha habido un error). No copies esta contraseña"
+  },
+  "clipboard": {
+    "success": "Se ha copiado la contraseña",
+    "failure": "No se ha podido limpiar el portapapeles",
+    "clear": "Limpiar manualmente"
+  }
+}

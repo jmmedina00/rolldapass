@@ -1,0 +1,16 @@
+{
+  "fieldLabel": "Generate your password",
+  "buttonTooltips": {
+    "passShow": "Show password ({{shortcut}})",
+    "passHide": "Hide password ({{shortcut}})",
+    "reroll": "Regenerate password ({{shortcut}})",
+    "clipboard": "Copy password ({{shortcut}})"
+  },
+  "entropySelect": "Entropy algorythm",
+  "entropyResults": {
+    "uic": "Score: {{result}} points",
+    "shannon": "Entropy: {{result}} bits",
+    "keepass": "Entropy: {{result}} bits",
+    "zxcvbn": "Strength: {{result}}"
+  }
+}

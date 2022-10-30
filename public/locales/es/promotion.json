@@ -1,0 +1,21 @@
+{
+  "header": "Deberías usar uno de estos gestores de contraseñas:",
+  "link": "Ir al sitio",
+  "sections": {
+    "commercial": "Productos comerciales",
+    "foss": "Programas FOSS"
+  },
+  "descriptions": {
+    "Dashlane": "¡También tiene una VPN!",
+    "LastPass": "Ahora con acceso sin contraseña.",
+    "Keeper": "Mensajería encriptada incluída.",
+    "1Password": "Ideal para familias.",
+    "NordPass": "Detecta datos que aparecen en brechas de seguridad.",
+    "Blur": "Protege tu privacidad.",
+    "Bitwarden": "Servicio en la nube que puedes alojar en local.",
+    "KeePass": "Guarda tus contraseñas en un archivo estandarizado.",
+    "KeePassXC": "KeePass que funciona nativamente en cualquier SO.",
+    "KeeWeb": "KeePass en tu navegador... o Electron.",
+    "pass": "Guarda contraseñas en archivos encriptados con GPG."
+  }
+}

@@ -1,4 +1,13 @@
 {
   "length": "Longitud de la contraseña",
-  "charsetsLabel": "Tipos de caracteres"
+  "charsetsLabel": "Tipos de caracteres",
+  "includeCharacters": "Incluir caracteres",
+  "excludeCharacters": "Excluir caracteres",
+  "charsets": {
+    "uppercase": "Mayúscula ({{clarify}})",
+    "lowercase": "Minúscula ({{clarify}})",
+    "numbers": "Números ({{clarify}})",
+    "special": "Caracteres especiales",
+    "extended": "ASCII extendido"
+  }
 }

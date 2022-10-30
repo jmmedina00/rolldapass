@@ -1,0 +1,34 @@
+{
+  "currentLanguage": "Idioma: español",
+  "aboutItem": "Acerca de",
+  "install": "Instalar al escritorio",
+  "toggles": {
+    "dark": "Tema oscuro",
+    "entropy": "Calcular entropía",
+    "advanced": "Opciones avanzadas",
+    "haveibeenpwned": "Comprobar seguridad",
+    "passmanagerorganized": "Organizar tarjetas"
+  },
+  "about": {
+    "title": "Acerca de",
+    "tabs": {
+      "about": "Acerca de",
+      "libraries": "Bibliotecas",
+      "other": "Otros"
+    },
+    "main": {
+      "created": "Creado por ",
+      "license": " y distribuido bajo los términos de la Licencia MIT"
+    },
+    "other": {
+      "checking": "Comprobación de contraseñas proveída por ",
+      "license": " bajo la licencia internacional Creative Commons 4.0."
+    },
+    "libraries": {
+      "zxcvbn": "de {{author}}",
+      "keepass": "implementado con {{library}} por {{author}}",
+      "uic": "implementado por {{author}}",
+      "tai": "incluído en {{library}} por {{author}}"
+    }
+  }
+}

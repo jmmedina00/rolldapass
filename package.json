@@ -67,5 +67,6 @@
     "transformIgnorePatterns": [
       "node_modules/(?!use-keyboard-shortcut)/"
     ]
-  }
+  },
+  "homepage": "."
 }

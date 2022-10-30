@@ -117,9 +117,7 @@ const About = () => {
           {t("about.other.checking")}
           <Link href={haveIBeenPwned}>HaveIBeenPwned</Link>
           {t("about.other.license")}
-          <Box component="span" display="block">
-            CC/BY badge here
-          </Box>
+          <Box component="img" src="assets/by.svg" display="block" />
         </TabPanel>
       </DialogContent>
     </Dialog>

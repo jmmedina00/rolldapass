@@ -11,7 +11,10 @@ i18n
     ns: ["config", "notification", "passgen", "promotion", "settings"],
     preload: ["en", "es"],
     fallbackLng: "en",
-    debug: true,
+    debug: false,
+    backend: {
+      loadPath: `${process.env.PUBLIC_URL}/locales/{{lng}}/{{ns}}.json`,
+    },
     interpolation: { escapeValue: false },
   });
 
